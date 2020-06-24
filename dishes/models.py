@@ -6,6 +6,7 @@ class Dishes(models.Model):
     description = models.TextField(max_length=600)
     image = models.ImageField('Image')
     ccal = models.PositiveIntegerField('Калорийность', default=0)
+    """НЕ ЗАБЫТЬ ПОМЕНЯТЬ ПРОТЕИНС ФАСТ И  УГЛЕВОДОС НА ФЛОАТ ЧТОБЫ СЧИТАТЬ ККАЛС """
     proteins = models.PositiveIntegerField('Белки', default=0)
     fats = models.PositiveIntegerField('Жиры', default=0)
     carbohydrates = models.PositiveIntegerField('Углеводы', default=0)
