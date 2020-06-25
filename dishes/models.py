@@ -1,18 +1,19 @@
 from django.db import models
 
 # Create your models here.
+from django.urls import reverse
+
+
 class Dishes(models.Model):
     name = models.CharField(max_length=300)
     description = models.TextField(max_length=600)
     image = models.ImageField('Image')
     ccal = models.PositiveIntegerField('Калорийность', default=0)
-    """НЕ ЗАБЫТЬ ПОМЕНЯТЬ ПРОТЕИНС ФАСТ И  УГЛЕВОДОС НА ФЛОАТ ЧТОБЫ СЧИТАТЬ ККАЛС """
-    proteins = models.PositiveIntegerField('Белки', default=0)
-    fats = models.PositiveIntegerField('Жиры', default=0)
-    carbohydrates = models.PositiveIntegerField('Углеводы', default=0)
+    """текстовое поле белков углеводов и жиров, руками пусть вводят нефиг калькуляторы """
+    pfc = models.CharField(max_length=100)
     weight = models.PositiveIntegerField('Вес в граммах', default=0)
     price = models.PositiveIntegerField('Цена', default=0)
-    slug = models.SlugField(max_length=150, unique=True)
+    slug = models.SlugField(max_length=150)
 
     def __str__(self):
         return self.name
@@ -20,6 +21,9 @@ class Dishes(models.Model):
     class Meta:
         verbose_name = 'Блюдо'
         verbose_name_plural = 'Блюда'
+
+    def get_absolute_url(self):
+        return reverse('dishes:detail', kwargs={"pk": self.id})
 
 class SubDishes(models.Model):
     name = models.CharField(max_length=150)
