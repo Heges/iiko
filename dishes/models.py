@@ -12,6 +12,7 @@ class Dishes(models.Model):
     carbohydrates = models.PositiveIntegerField('Углеводы', default=0)
     weight = models.PositiveIntegerField('Вес в граммах', default=0)
     price = models.PositiveIntegerField('Цена', default=0)
+    slug = models.SlugField(max_length=150, unique=True)
 
     def __str__(self):
         return self.name
@@ -35,6 +36,7 @@ class SubDishes(models.Model):
 class CategoryDishes(models.Model):
     name = models.CharField(max_length=150)
     slug = models.SlugField(max_length=150, unique=True)
+
 
     def __str__(self):
         return self.name
