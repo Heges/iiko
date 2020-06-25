@@ -7,6 +7,7 @@ from .models import *
 
 class ListView(ListView):
     model = Dishes
+    template_name = 'dishes/index.html'
     disheslist = Dishes.objects.all()
 
 

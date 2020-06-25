@@ -7,7 +7,7 @@ from django.urls import reverse
 class Dishes(models.Model):
     name = models.CharField(max_length=300)
     description = models.TextField(max_length=600)
-    image = models.ImageField('Image')
+    image = models.ImageField('Image', null=True, blank=True)
     ccal = models.PositiveIntegerField('Калорийность', default=0)
     """текстовое поле белков углеводов и жиров, руками пусть вводят нефиг калькуляторы """
     pfc = models.CharField(max_length=100)

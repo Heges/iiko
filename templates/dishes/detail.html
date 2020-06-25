@@ -4,28 +4,25 @@
 {% block content %}
 
 <div class="desc1-left col-md-6">
-    <img src="{{object.image}}" class="img-fluid" alt="">
+    <img src="{{object.image.url}}" class="img-fluid" alt="">
 </div>
 <div class="desc1-right col-md-6 pl-lg-4">
-    <h3 class="editContent" style="outline: none; cursor: inherit;">{{ object.name }} </h3>
-    <h5 class="editContent">{{ object.name }}</h5>
-    <div class="share-desc">
-        <div class="share">
-            <h4 class="editContent"
-                style="outline: none; cursor: inherit;">
-                Share:
-            </h4>
-        </div>
-        <div class="clearfix"></div>
-    </div>
+    <h3 class="editContent" style="outline: none; cursor: inherit;">
+        {{ object.name }}
+    </h3>
+    <h5 class="editContent">
+        {{ object.name }}
+    </h5>
 </div>
 <div class="row sub-para-w3layouts mt-5">
-
     <h3 class="shop-sing editContent" style="outline: none; cursor: inherit;">
         {{ object.name }}
     </h3>
-    <p class="editContent" style="outline: none; cursor: inherit;">
+    <h3 class="shop-sing editContent" style="outline: none; cursor: inherit;">
         {{ object.description }}
+    </h3>
+    <p>
+        <a href="{% url 'dishes:index' %}">NAZAAAAAD</a>
     </p>
 </div>
 {% endblock %}
