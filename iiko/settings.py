@@ -64,6 +64,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'dishes.contexts.category_dishes_list',
+                'dishes.contexts.subdishes_list',
             ],
         },
     },

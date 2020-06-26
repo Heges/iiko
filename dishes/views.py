@@ -1,17 +1,14 @@
-from django.shortcuts import render
-from django.template import loader, RequestContext
 from django.views.generic import ListView, DetailView
-from django.http import HttpResponse, request
+
 from .models import *
-# Create your views here.
-
-class ListView(ListView):
-    model = Dishes
-    template_name = 'dishes/index.html'
-    disheslist = Dishes.objects.all()
 
 
-class DetailView(DetailView):
+class MainListView(ListView):
+    template_name = 'dishes/dishes_list.html'
+    queryset = Dishes.objects.all()
+
+
+class MainDetailView(DetailView):
     model = Dishes
     template_name = 'dishes/detail.html'
     slug_field = 'url'
