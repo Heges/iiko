@@ -1,35 +1,25 @@
 {% load static %}
 <html lang="ru">
 <head>
-    <!-- //Meta tag Keywords -->
     <title>Clack Website Template</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- //Meta tag Keywords -->
-    <!-- Custom-Files -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-    <!-- Bootstrap-Core-CSS -->
-    <!--/ Style-CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="all">
-    <!-- /Fonts -->
 </head>
 <body>
 
-<div id="container">
+<div class="wrapper">
     {% include 'include/header.html' %}
-    <section class="ab-info-main py-md-5 py-4 editContent " style="padding-left: 3rem; padding-right: 3rem;">
+    <div class="row ">
         {% include 'include/sidebar.html' %}
-        <div class="container-fluid py-md-3">
-            <div class="left-ads-display col-lg-12">
-                <div class="row ">
-                    {% block content %}
+        <div class="inner-content">
+            {% block content %}
 
 
-                    {% endblock content %}
-                </div>
-            </div>
+            {% endblock content %}
         </div>
-    </section>
+    </div>
     {% include 'include/footer.html' %}
 </div>
 </body>

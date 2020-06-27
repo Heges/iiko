@@ -1,16 +1,13 @@
-
-<div id="sidebar1">
+<div class ="sidebar">
     <h2>Каталог меню</h2>
    {% for obj in categorydishes_list %}
-    <ul id="sidebarlist">
-
+    <ul>
         <li><a href="#">{{ obj.name }}</a></li>
-        {% for subdishes in subdishes_list %}
+        {%for sub in obj.subdishes.all %}
         <ul>
-            {{ subdishes.name }}
+           <li> <a href="#">{{ sub.name }}</a></li>
         </ul>
-        {% endfor%}
+        {% endfor %}
     </ul>
-
+    {% endfor %}
 </div>
-{% endfor %}

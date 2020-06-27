@@ -24,7 +24,7 @@ class Dishes(models.Model):
 
     def get_absolute_url(self):
         return reverse('dishes:detail', kwargs={"pk": self.id})
-
+#on_delete=models.CASCADE не забыть добавить
 class SubDishes(models.Model):
     name = models.CharField(max_length=150)
     slug = models.SlugField(max_length=150, unique=True)
@@ -37,10 +37,11 @@ class SubDishes(models.Model):
         verbose_name = 'Подкатегория'
         verbose_name_plural = 'Подкатегории'
 
+#on_delete=models.CASCADE не забыть добавить
 class CategoryDishes(models.Model):
     name = models.CharField(max_length=150)
     slug = models.SlugField(max_length=150, unique=True)
-
+    subdishes = models.ManyToManyField(SubDishes, verbose_name='Подкатегория', related_name='subdishes')
 
     def __str__(self):
         return self.name

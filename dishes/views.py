@@ -8,6 +8,8 @@ class MainListView(ListView):
     queryset = Dishes.objects.all()
 
 
+
+
 class MainDetailView(DetailView):
     model = Dishes
     template_name = 'dishes/detail.html'

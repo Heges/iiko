@@ -1,42 +1,37 @@
 {% load static %}
 <div class="main-banner bg bg1" id="home"
-         style="background-color: rgba(0, 0, 0, 0); margin-top: 0px; background-image: url(&quot;{% static 'logo_dnd5.3.jpg' %}&quot;);">
-        <!-- header -->
-        <header class="header">
-            <div class="container-fluid px-lg-5">
-                <!-- nav -->
-                <nav class="py-4">
-                    <div id="logo">
-                        <h1>
-                            <a href="#" class="editContent" style="outline: none; outline-offset: -2px; cursor: inherit; color: rgb(255, 255, 255); font-size: 40px; background-color: rgba(0, 0, 0, 0); font-family: &quot;Source Sans Pro&quot;, sans-serif;">
-                            DjangoD&D5</a>
-                        </h1>
-                    </div>
-                    <label for="drop" class="toggle">Menu</label>
-                    <input type="checkbox" id="drop">
-                    <ul class="menu mt-2">
-                        <li class="active"><a href="/{{content.url}}">Главная</a></li>
-                        <li><a href="#"
-                               style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Вход</a>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- //nav -->
+     style="background-color: rgba(0, 0, 0, 0); margin-top: 0px; background-image:{% static 'logo_dnd5.2.png' %});">
+    <!-- header -->
+    <header class="header">
+        <nav class="py-4">
+            <div id="logo">
+                <h1>
+                    <a href="#" class="editContent"
+                       style="outline: none; outline-offset: -2px; cursor: inherit; color: rgb(255, 255, 255); font-size: 40px; background-color: rgba(0, 0, 0, 0); font-family: &quot;Source Sans Pro&quot;, sans-serif;">
+                        DjangoD&D5</a>
+                </h1>
             </div>
-        </header>
-        <!-- //header -->
-        <!--/banner-->
-        <div class="banner-info">
-            <p class="editContent">лучший сайт на django 3</p>
-            <h3 class="mb-4 editContent">ЛОКТАР ОГАР</h3>
-            <div class="ban-buttons">
-            </div>
+            <label for="drop" class="toggle">Menu</label>
+            <input type="checkbox" id="drop">
+            <ul class="menu mt-2">
+                <li class="active"><a href="/{{content.url}}">Главная</a></li>
+                <li><a href="#"
+                       style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Вход</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div class="banner-info">
+        <p class="editContent">лучший сайт на django 3</p>
+        <h3 class="mb-4 editContent">ЛОКТАР ОГАР</h3>
+        <div class="ban-buttons">
         </div>
-        <!--// banner-inner -->
     </div>
-    <ol class="breadcrumb editContent">
-        <li class="breadcrumb-item">
-            <a href="/{{content.url}}" class="editContent">Home</a>
-        </li>
-        <li class="breadcrumb-item active editContent">Single Page</li>
-    </ol>
+    <!--// banner-inner -->
+</div>
+<ol class="breadcrumb editContent">
+    <li class="breadcrumb-item">
+        <a href="/{{content.url}}" class="editContent">Home</a>
+    </li>
+    <li class="breadcrumb-item active editContent">Single Page</li>
+</ol>
