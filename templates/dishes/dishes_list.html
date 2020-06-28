@@ -2,17 +2,17 @@
 {% load static %}
 {% block content %}
 {% for dishes in dishes_list %}
-<div class="col-md-3 product-men">
+<div class="block-content">
     <div class=".clearfix">
-        <div class="product-shoe-info editContent text-center mt-lg-4 ">
-            <div class="men-thumb-item ">
+        <div class="box">
+            <div class="image-box">
                 <img src="{{ dishes.image.url }}" class="img-fluid" alt="" width="300px" height="300px">
             </div>
-            <div class="item-info-product">
+            <div class="box-content">
                 <h4>
                     <a href="{{ dishes.get_absolute_url }}" class="editContent">{{ dishes.name }}</a>
                 </h4>
-                <div class="product_price">
+                <div class="box-price">
                     <div class="grid-price">
                         <span class="money editContent">{{ dishes.description }} {{dishes.price }}</span>
                     </div>

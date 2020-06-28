@@ -1,49 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap');
-*{
-    margin:0;
-    padding: 0;
-    outline: none;
-
-}
-
-body, html {
-    width:100%;
-    height:100%;
-}
-
 body{
-    background-color:#000;
-    font-family: Trebuchet MC, Helvetica;
+    font-size: 20px;
 }
 
-.inner-content {
-    padding: 10px, 10px, 10px, 10px;
-    background-color: red;
-    min-height: 500px;
-    width: 70%;
-    float:left;
+.header {
+    background: #3972b3;
+    height: 200px;
+    margin-bottom: 20px;
 }
+
+.iner-content > div {
+    background: #eee;
+  float: left;
+  width: 25%;
+  height: 600px;
+  margin-right: 2%;
+  padding: 10px;
+  margin: 40px;
+  border: 1px solid #ccc;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
 .sidebar {
-    float:left;
+    min-height: 1500px;
     width: 30%;
-    min-height: 500px;
-    background-color: blue;
+    float: left;
 }
 
-.header{
-    width: 100%;
-    padding: 10px 0.5% 0px 0.5%;
-    background:transparent;
-    float:left;
-    position:fixed;
-}
-
-.header #logo {
-    color: #fff;
-    cursor: pointer;
-}
-
-.clearfix:after {
+.row:after {
   visibility: hidden;
   display: block;
   font-size: 0;
@@ -51,10 +37,10 @@ body{
   clear: both;
   height: 0;
 }
-.clearfix { display: inline-block; }
+.row { display: inline-block; }
 /* start commented backslash hack \*/
-* html .clearfix { height: 1%; }
-.clearfix { display: block; }
+* html .row { height: 1%; }
+.row { display: block; }
 /* close commented backslash hack */
 
 

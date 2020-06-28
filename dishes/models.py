@@ -24,6 +24,7 @@ class Dishes(models.Model):
 
     def get_absolute_url(self):
         return reverse('dishes:detail', kwargs={"pk": self.id})
+
 #on_delete=models.CASCADE не забыть добавить
 class SubDishes(models.Model):
     name = models.CharField(max_length=150)
@@ -49,6 +50,9 @@ class CategoryDishes(models.Model):
     class Meta:
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
+
+    def get_absolute_url(self):
+        return reverse("dishes:categorydishes", kwargs={"slug": self.slug})
 
 
 

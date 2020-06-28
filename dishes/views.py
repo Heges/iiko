@@ -8,11 +8,17 @@ class MainListView(ListView):
     queryset = Dishes.objects.all()
 
 
-
-
 class MainDetailView(DetailView):
     model = Dishes
     template_name = 'dishes/detail.html'
-    slug_field = 'url'
+
+
+class MainCategoryDishes(ListView):
+    model = CategoryDishes
+    template_name = 'dishes/categorydishes.html'
+
+#def MainMenuView(request, slug):
+
+
 
 

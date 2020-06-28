@@ -1,11 +1,11 @@
+<!DOCTYPE html>
 {% load static %}
 <html lang="ru">
 <head>
     <title>Clack Website Template</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css" media="all">
 </head>
 <body>
 
@@ -13,9 +13,8 @@
     {% include 'include/header.html' %}
     <div class="row ">
         {% include 'include/sidebar.html' %}
-        <div class="inner-content">
+        <div class="iner-content">
             {% block content %}
-
 
             {% endblock content %}
         </div>
