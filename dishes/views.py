@@ -1,6 +1,5 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic import ListView, DetailView
-#from django.views.generic.base import View
 from django.views import View
 
 from .models import *
@@ -15,9 +14,6 @@ class MainDetailView(DetailView):
     model = Dishes
     template_name = 'dishes/detail.html'
 
-'''class MainCategoryDishes(ListView):
-    model = CategoryDishes
-    template_name = 'dishes/categorydishes.html'''
 
 class MainCategoryDishes(View):
     def get(self, request, slug):

@@ -2,23 +2,20 @@
 {% load static %}
 {% block content %}
 {% for obj in menu_list %}
-<div class="col-md-3 product-men">
-    <div class="row">
-        <div class="box">
-            <span class="editContent">{{obj.name}}</span>
-            <div class="image-box ">
-                <img src="#" class="img-fluid" alt="" width="100px" height="100px">
-            </div>
-            {% for subcat in obj.subdishes.all %}
-            <div class="item-info-product">
-                <h4>
-                    <a href="#" class="editContent"> {{ subcat.name }} </a>
-                </h4>
-                <span></span>
-            </div>
-            {% endfor %}
-        </div>
+<div class="box">
+    <span class="editContent">{{obj.name}}</span>
+    {% for subcat in obj.subdishes.all %}
+    <div class="image-box ">
+        <img src="#" class="img-fluid" alt="" width="100px" height="100px">
     </div>
+
+    <div class="item-info-product">
+        <h4>
+            <a href="#" class="editContent" style="text-align:center;"> {{ subcat.name }} </a>
+        </h4>
+        <span></span>
+    </div>
+    {% endfor %}
 </div>
 {% endfor %}
 {% endblock content %}
