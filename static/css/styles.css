@@ -9,8 +9,8 @@ body{
     margin-bottom: 20px;
 }
 
-.iner-content > div {
-    background: #eee;
+.box > div {
+  background: #eee;
   float: left;
   width: 25%;
   height: 600px;
@@ -24,7 +24,7 @@ body{
 }
 
 .sidebar {
-    min-height: 1500px;
+    height: 2500px;
     width: 30%;
     float: left;
 }

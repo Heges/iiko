@@ -6,7 +6,7 @@
     <span class="editContent">{{obj.name}}</span>
     {% for subcat in obj.subdishes.all %}
     <div class="image-box ">
-        <img src="#" class="img-fluid" alt="" width="100px" height="100px">
+        <img src="{{ subcat.image.url }}" class="img-fluid" alt="" width="100px" height="100px">
     </div>
 
     <div class="item-info-product">
