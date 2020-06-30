@@ -38,6 +38,9 @@ class SubDishes(models.Model):
         verbose_name = 'Подкатегория'
         verbose_name_plural = 'Подкатегории'
 
+    def get_absolute_url(self):
+        return reverse("dishes:subcategorydishes", kwargs={"slug": self.slug})
+
 #on_delete=models.CASCADE не забыть добавить
 class CategoryDishes(models.Model):
     name = models.CharField(max_length=150)

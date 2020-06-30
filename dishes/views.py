@@ -19,4 +19,11 @@ class MainCategoryDishes(View):
     def get(self, request, slug):
         if slug:
             menu_list = CategoryDishes.objects.filter(slug=slug)
-            return render(request, 'dishes/categorydishes.html', {'menu_list': menu_list})
+            submenu_list = SubDishes.objects.filter(slug=slug)
+            return render(request, 'dishes/categorydishes.html', {'menu_list': menu_list, 'submenu_list': submenu_list})
+
+class MainSubCategoryDishes(View):
+    def get(self, request, slug):
+        if slug:
+            submenu_list = SubDishes.objects.filter(slug=slug)
+            return render(request, 'dishes/subcategorydishes.html', {'submenu_list': submenu_list})

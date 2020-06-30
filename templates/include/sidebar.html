@@ -3,9 +3,9 @@
    {% for obj in categorydishes_list %}
     <ul>
         <li><a href="{% url 'dishes:categorydishes' obj.slug %}">{{ obj.name }}</a></li>
-        {%for sub in obj.subdishes.all %}
+        {% for sub in obj.subdishes.all %}
         <ul>
-           <li> <a href="#">{{ sub.name }}</a></li>
+           <li> <a href="{% url 'dishes:subcategorydishes' sub.slug %}">{{ sub.name }}</a></li>
         </ul>
         {% endfor %}
     </ul>
