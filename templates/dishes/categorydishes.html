@@ -1,6 +1,7 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block content %}
+{% if menu_list %}
 {% for obj in menu_list %}
 <div class="box">
     <span class="editContent">{{obj.name}}</span>
@@ -8,13 +9,34 @@
     <div class="image-box ">
         <img src="{{ subcat.image.url }}" class="img-fluid" alt="" width="100px" height="100px">
     </div>
-
     <div class="item-info-product">
         <h4>
-            <a href="{% url 'dishes:subcategorydishes' subcat.slug %}" class="editContent" style="text-align:center;"> {{ subcat.name }} </a>
+            <a href="{% url 'dishes:categorydishes' subcat.slug %}" class="editContent" style="text-align:center;"> {{
+                subcat.name }} </a>
         </h4>
     </div>
     {% endfor %}
 </div>
 {% endfor %}
+{% elif submenu_list %}
+{% for obj in submenu_list %}
+<div class="box">
+    <span class="editContent">{{obj.name}}</span>
+    {% for subdishcat in obj.dishes.all %}
+    <div class="image-box ">
+        <img src="{{subdishcat.image.url}}" class="img-fluid" alt="" width="100px" height="100px">
+    </div>
+    <div class="item-info-product">
+        <h4>
+            <a href="{{ subdishcat.get_absolute_url }}" class="editContent" style="text-align:center;">
+                {{ subdishcat.name }} </a></h4>
+        <div>
+            <span>
+            </span>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endfor %}
+{% endif %}
 {% endblock content %}

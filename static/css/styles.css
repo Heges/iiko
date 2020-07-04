@@ -4,12 +4,11 @@ body{
 }
 
 .header {
-    background: #3972b3;
-    height: 200px;
+    min-height: 300px;
     margin-bottom: 20px;
 }
 
-.box > div {
+.iner-content > div {
   background: #eee;
   float: left;
   width: 25%;

@@ -1,3 +1,6 @@
+from datetime import timezone
+
+from django.http import request, HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic import ListView, DetailView
 from django.views import View
@@ -19,10 +22,15 @@ class MainCategoryDishes(View):
     def get(self, request, slug):
         if slug:
             menu_list = CategoryDishes.objects.filter(slug=slug)
-            return render(request, 'dishes/categorydishes.html', {'menu_list': menu_list})
-
-class MainSubCategoryDishes(View):
-    def get(self, request, slug):
-        if slug:
             submenu_list = SubDishes.objects.filter(slug=slug)
-            return render(request, 'dishes/subcategorydishes.html', {'submenu_list': submenu_list})
+            return render(request, 'dishes/categorydishes.html', {'menu_list': menu_list, 'submenu_list': submenu_list})
+
+
+class MainCartView(ListView):
+    def get(self, reqest):
+        return HttpResponse('Страница корзины в разработке')
+
+
+class MainLoginView(ListView):
+    def get(self, reqest):
+        return HttpResponse("Страница автлоризации в разработке")

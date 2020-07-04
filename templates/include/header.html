@@ -1,35 +1,29 @@
 {% load static %}
-<div class="main-banner bg bg1" id="home"
-     style="background-color: rgba(0, 0, 0, 0); margin-top: 0px; background-image:{% static 'logo_dnd5.2.png' %});">
-    <!-- header -->
-    <header class="header">
+<div class="main-banner bg bg1" id="home" style="margin-top: 0px;">
+    <header class="header" style="background-image:url({% static 'logo.png' %});">
         <nav class="py-4">
             <div id="logo">
                 <h1>
-                    <a href="#" class="editContent"
-                       style="outline: none; outline-offset: -2px; cursor: inherit; color: rgb(255, 255, 255); font-size: 40px; background-color: rgba(0, 0, 0, 0); font-family: &quot;Source Sans Pro&quot;, sans-serif;">
-                        Кухня "Извольте жрать сэр"</a>
+                    <a href="#" class="editContent" style="outline: none; outline-offset: -2px; color: rgb(0, 0, 0);
+                    text-shadow: white 0 0 2px;  font-size: 40px; sans-serif;"> Кухня "Извольте жрать сэр"</a>
                 </h1>
             </div>
-            <label class="toggle">Кухня</label>
-            <ul class="menu mt-2">
-                <li class="active"><a href="/{{content.url}}">Главная</a></li>
+            <ul class="menu mt-2" style="float:right; display:block">
                 <li>
-                    <a href="#"style="font-weight: 700; text-transform: uppercase;">Вход</a>
+                    <a href="#" style="font-weight: 700; text-transform: uppercase;">Вход</a>
                 </li>
                 <li>
-                    <a href="#"style="font-weight: 700; text-transform: uppercase;">Корзина</a>
+                    <a href="#" style="font-weight: 700; text-transform: uppercase;">Корзина</a>
                 </li>
             </ul>
         </nav>
     </header>
     <div class="banner-info">
-        <p class="editContent">лучший сайт на django 3</p>
+        <p class="editContent">Надпись для тех кто умеет читать</p>
         <h3 class="mb-4 editContent">ЛОКТАР ОГАР</h3>
         <div class="ban-buttons">
         </div>
     </div>
-    <!--// banner-inner -->
 </div>
 <ol class="breadcrumb editContent">
     <li class="breadcrumb-item">
