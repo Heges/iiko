@@ -2,10 +2,43 @@
 body{
     font-size: 20px;
 }
-
 .header {
     min-height: 300px;
     margin-bottom: 20px;
+}
+.main-form {
+  padding: 4rem 5rem;
+  background-color: #ffffff;
+  text-align: center;
+}
+.main-form .main-form-header {
+  font-size: 2.8rem;
+  margin-bottom: 4rem;
+}
+.main-form .main-form-input {
+  display: block;
+  width: 100%;
+  padding: 1.5rem;
+  border-radius: 5px;
+  border: solid 1px #dddddd;
+  margin-bottom: 2rem;
+}
+.main-form label {
+  margin: 2rem 0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-75%) translateY(-150%);
+  background-color: #ffffff;
+}
+.main-form small {
+  display: block;
+  margin-top: 1rem;
+}
+.main-form button {
+  display: inline-block;
+  height: 5rem;
+  width: 100%;
+  font-size: 1.4rem;
 }
 
 .iner-content > div {
@@ -21,13 +54,40 @@ body{
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-
+.image-box {
+text-align: center;
+}
+.editContentCenter {
+text-align:center;
+}
+.editContent {
+}
+.feature-block {
+  text-align: center;
+}
+.feature-block h3 {
+  font-family: 'ProximaNova_bold', sans-serif;
+  font-size: 2rem;
+  margin-bottom: 3rem;
+}
+.feature-block p {
+  display: inline-block;
+  width: 70%;
+  font-size: 1.6rem;
+}
+.feature-img {
+  height: 22rem;
+  margin-bottom: 6rem;
+}
+.feature-img img {
+  display: block;
+  margin: 0 auto;
+}
 .sidebar {
-    height: 2500px;
+    height: 1000px;
     width: 30%;
     float: left;
 }
-
 .row:after {
   visibility: hidden;
   display: block;

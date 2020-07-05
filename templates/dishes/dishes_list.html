@@ -2,23 +2,26 @@
 {% load static %}
 {% block content %}
 {% for dishes in dishes_list %}
-<div class="box">
-    <div class="image-box">
-        <img src="{{ dishes.image.url }}" class="img-fluid" alt="" width="300px" height="300px">
-    </div>
-    <div class="box-content">
-        <h4>
-            <a href="{{ dishes.get_absolute_url }}" class="editContent">{{ dishes.name }}</a>
-        </h4>
-        <div class="box-price">
-            <div class="grid-price">
-                <span class="money editContent">{{ dishes.description }} {{dishes.price }}</span>
-                <p>
-                    <a href="#">Добавить в корзину</a>
-                </p>
+<div class="iner-content">
+    <div class="box">
+        <div class="image-box">
+            <img src="{{ dishes.image.url }}" class="img-fluid" alt="" width="300px" height="300px">
+        </div>
+        <div class="box-content">
+            <h4>
+                <a href="{{ dishes.get_absolute_url }}" class="editContent">{{ dishes.name }}</a>
+            </h4>
+            <div class="box-price">
+                <div class="grid-price">
+                    <span class="editContent">{{ dishes.description }} {{dishes.price }}</span>
+                    <p>
+                        <a href="#">Добавить в корзину</a>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 {% endfor %}
 {% endblock content %}

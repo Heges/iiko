@@ -8,12 +8,11 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css" media="all">
 </head>
 <body>
-
 <div class="wrapper" >
     {% include 'include/header.html' %}
     <div class="row ">
         {% include 'include/sidebar.html' %}
-        <div class="iner-content">
+        <div class="box">
             {% block content %}
 
             {% endblock content %}

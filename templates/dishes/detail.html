@@ -1,17 +1,21 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block content %}
-<div class="box">
-    <div class="image-box">
-        <img src="{{ object.image.url }}" class="img-fluid" alt="" width="300px" height="300px">
-    </div>
-    <div class="box-content">
-        <h1>
-            <span class="editContent">{{object.name}}</span>
-        </h1>
-        <div class="box-price">
-            <div class="grid-price">
-                <span class="money editContent">{{ object.description }} {{object.price}}</span>
+<section class="feature">
+    <div class="container">
+        <h2 class="section-header ">Детальное мендю</h2>
+        <div class="feature-slider">
+            <div class="feature-block">
+                <div class="feature-img">
+                    <picture>
+                        <source srcset="" type="image/">
+                        <img src="{{ object.image.url }}" width="400px" height="400px">
+                    </picture>
+                </div>
+                <h3>{{object.name}}</h3>
+                <p>{{ object.description }}</p>
+                <div class="grid-price">
+                <span class="money editContent"> и всего стоит {{object.price}} рупей</span>
                 <p>
                     <a href="{% url 'dishes:index' %}">NAZAAAAAD</a>
                 </p>
@@ -19,8 +23,8 @@
                     <a href="#">Добавить в корзину</a>
                 </p>
             </div>
+            </div>
         </div>
     </div>
-</div>
-
+</section>
 {% endblock %}

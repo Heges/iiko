@@ -1,0 +1,19 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<section class="feature">
+    <div class="container">
+        <h2 class="section-header">Корзина</h2>
+        <div class="feature-slider">
+            <div class="feature-block">
+                <h3>Добавленые товары</h3>
+                <p>А здесь собственно добавленые товары</p>
+                <span class="money editContent"> и всего стоит столько то рублей</span>
+                <p>
+                    <a href="{% url 'dishes:index' %}">NAZAAAAAD</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

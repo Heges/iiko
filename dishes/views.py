@@ -10,7 +10,9 @@ from .models import *
 
 class MainListView(ListView):
     template_name = 'dishes/dishes_list.html'
-    queryset = Dishes.objects.all()
+
+    def get_queryset(self):
+        return Dishes.objects.all().order_by('-id')[:4]
 
 
 class MainDetailView(DetailView):
@@ -27,10 +29,22 @@ class MainCategoryDishes(View):
 
 
 class MainCartView(ListView):
+
     def get(self, reqest):
-        return HttpResponse('Страница корзины в разработке')
+        return render(reqest, 'cart/cart.html')
 
 
 class MainLoginView(ListView):
+
     def get(self, reqest):
-        return HttpResponse("Страница автлоризации в разработке")
+        return render(reqest, 'login/login.html')
+
+
+class MainRegistrView(ListView):
+
+    def get_context_object_name(self, object_list, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+    def get(self, reqest):
+        return render(reqest, 'login/registr.html')
