@@ -6,16 +6,16 @@
         <div class="box-content">
             <div class="main-form">
                 <h2 class="main-form-header">Окно с registr!</h2>
-                <form action="#">
-                    <label for="#">Введите позывной, сэр</label>
-                    <input type="text" class="main-form-input"><br>
-                    <label for="#">Введите свои секретные цифры, сэр</label>
-                    <input type="text" class="main-form-input">
-                    <button class="button" type="submit">Извольте Регнуться</button>
+                <form method="post">
+                    {% csrf_token %}
+                    <label for="#">Ваш позывной, сэр</label>
+                    {{form.username}}<br>
+                    <label for="#">Ваши секретные цифры, сэр</label>
+                    {{form.password}}<br>
+                    <button class="button" type="submit" >Извольте</button><br>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
 {% endblock %}

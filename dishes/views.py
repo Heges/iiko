@@ -2,8 +2,11 @@ from datetime import timezone
 
 from django.http import request, HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from django.views import View
+from django.contrib.auth.views import LoginView
+from .forms import LoginUserForm, AuthUserForm
+from django.contrib.auth.models import User
 
 from .models import *
 
@@ -21,6 +24,7 @@ class MainDetailView(DetailView):
 
 
 class MainCategoryDishes(View):
+
     def get(self, request, slug):
         if slug:
             menu_list = CategoryDishes.objects.filter(slug=slug)
@@ -34,17 +38,15 @@ class MainCartView(ListView):
         return render(reqest, 'cart/cart.html')
 
 
-class MainLoginView(ListView):
+class MainLoginView(LoginView):
+    template_name = 'login/login.html'
+    form_class = LoginUserForm
 
-    def get(self, reqest):
-        return render(reqest, 'login/login.html')
 
+class MainRegistrView(CreateView):
+    model = User
+    template_name = 'login/registr.html'
+    form_class = AuthUserForm
+    success_url = '../'
+    success_msg = 'УСПЕШНО ЯБАТЬ'
 
-class MainRegistrView(ListView):
-
-    def get_context_object_name(self, object_list, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
-
-    def get(self, reqest):
-        return render(reqest, 'login/registr.html')

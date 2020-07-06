@@ -1,18 +1,32 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block content %}
+
+{% if form.errors %}
+  <p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+{% if next %}
+  {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.</p>
+  {% else %}
+    <p>Please login to see this page.</p>
+  {% endif %}
+{% endif %}
+
 <div class="iner-content">
     <div class="box">
         <div class="box-content">
             <div class="main-form">
-                <h2 class="main-form-header">Окно с login!</h2>
-                <form action="#">
+                <h2 class="main-form-header">Окно с login! {{request.user}}</h2>
+                <form action="#" method="post">
                     {% csrf_token %}
                     <label for="#">Ваш позывной, сэр</label>
-                    <input type="text" class="main-form-input"><br>
+                    {{ form.username }}<br>
                     <label for="#">Ваши секретные цифры, сэр</label>
-                    <input type="text" class="main-form-input">
-                    <button class="button" type="submit">Извольте</button>
+                    {{ form.password }}<br>
+                    <button class="button" type="submit" >Извольте</button><br>
                     <small>Нет учетной записи?</small>
                     <a href="{% url 'dishes:registrview' %}" class="button" type="submit">ЗАВЕДИ ЕПТ</a>
                 </form>
