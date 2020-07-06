@@ -3,11 +3,11 @@
 {% block content %}
 {% if menu_list %}
 {% for obj in menu_list %}
-<div class="box">
-    <span class="editContent">{{obj.name}}</span>
+<div class="col-md-6">
+    <h1 class="editContent">{{obj.name}}</h1>
     {% for subcat in obj.subdishes.all %}
     <div class="image-box ">
-        <img src="{{ subcat.image.url }}" class="img-fluid" alt="" width="100px" height="100px">
+        <img src="{{ subcat.image.url }}" class="img-fluid" alt="" width="150px" height="150px">
     </div>
     <div class="item-info-product">
         <h4>
@@ -20,11 +20,11 @@
 {% endfor %}
 {% elif submenu_list %}
 {% for obj in submenu_list %}
-<div class="box">
-    <span class="editContent">{{obj.name}}</span>
+<div class="col-md-6">
+    <h2 class="editContent">{{obj.name}}</h2>
     {% for subdishcat in obj.dishes.all %}
     <div class="image-box ">
-        <img src="{{subdishcat.image.url}}" class="img-fluid" alt="" width="100px" height="100px">
+        <img src="{{subdishcat.image.url}}" class="img-fluid" alt="" width="150px" height="150px">
     </div>
     <div class="item-info-product">
         <h4>

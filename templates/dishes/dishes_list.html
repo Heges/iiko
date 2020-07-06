@@ -3,7 +3,7 @@
 {% block content %}
 {% for dishes in dishes_list %}
 <div class="iner-content">
-    <div class="box">
+    <div class="clearfix">
         <div class="image-box">
             <img src="{{ dishes.image.url }}" class="img-fluid" alt="" width="300px" height="300px">
         </div>
@@ -22,6 +22,5 @@
         </div>
     </div>
 </div>
-
 {% endfor %}
 {% endblock content %}

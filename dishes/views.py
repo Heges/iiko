@@ -2,9 +2,10 @@ from datetime import timezone
 
 from django.http import request, HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
+from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 from django.views import View
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 from .forms import LoginUserForm, AuthUserForm
 from django.contrib.auth.models import User
 
@@ -12,10 +13,10 @@ from .models import *
 
 
 class MainListView(ListView):
-    template_name = 'dishes/dishes_list.html'
+    template_name = 'dishes/index.html'
 
     def get_queryset(self):
-        return Dishes.objects.all().order_by('-id')[:4]
+        return Dishes.objects.all().order_by('-id')[:6]
 
 
 class MainDetailView(DetailView):
@@ -41,6 +42,15 @@ class MainCartView(ListView):
 class MainLoginView(LoginView):
     template_name = 'login/login.html'
     form_class = LoginUserForm
+    success_url = '../'
+    success_msg = '==========================ВЫ ЗАШЛИ АЛО=========================='
+
+    def get_success_url(self):
+        return self.success_url
+
+
+class MainLogoutView(LogoutView):
+    next_page = success_url = '../'
 
 
 class MainRegistrView(CreateView):
@@ -48,5 +58,5 @@ class MainRegistrView(CreateView):
     template_name = 'login/registr.html'
     form_class = AuthUserForm
     success_url = '../'
-    success_msg = 'УСПЕШНО ЯБАТЬ'
+    success_msg = '==========================УСПЕШНО ЯБАТЬ=========================='
 

@@ -13,13 +13,16 @@
                     <a href="{% url 'dishes:loginview' %}" style="font-weight: 700; text-transform: uppercase;">Вход</a>
                 </li>
                 <li>
+                    <a href="{% url 'dishes:logoutview' %}" style="font-weight: 700; text-transform: uppercase;">Выход</a>
+                </li>
+                <li>
                     <a href="{% url 'dishes:cartview' %}" style="font-weight: 700; text-transform: uppercase;">Корзина</a>
                 </li>
             </ul>
         </nav>
     </header>
     <div class="banner-info">
-        <p class="editContentCenter">Надпись для тех кто умеет читать</p>
+        <p class="editContentCenter">Вы зашли как {{request.user}}</p>
         <h3 class="mb-4 editContent">ЛОКТАР ОГАР</h3>
         <div class="ban-buttons">
         </div>
