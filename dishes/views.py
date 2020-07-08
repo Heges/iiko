@@ -1,5 +1,6 @@
 from datetime import timezone
 
+from django.contrib.auth import authenticate, login
 from django.http import request, HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
@@ -14,6 +15,7 @@ from .models import *
 
 class MainListView(ListView):
     template_name = 'dishes/index.html'
+    #template_name = 'dishes/dishes_list.html'
 
     def get_queryset(self):
         return Dishes.objects.all().order_by('-id')[:6]
@@ -22,6 +24,16 @@ class MainListView(ListView):
 class MainDetailView(DetailView):
     model = Dishes
     template_name = 'dishes/detail.html'
+
+    def post(self, request, *args, **kwargs):
+
+        if request.method == 'POST':
+            submitbutton = request.POST.get("submit")
+            alist = Dishes.objects.filter(id=submitbutton)
+            return render(request, 'cart/cart.html', {'alist': alist})
+        else:
+            return redirect('./')
+
 
 
 class MainCategoryDishes(View):
@@ -59,4 +71,12 @@ class MainRegistrView(CreateView):
     form_class = AuthUserForm
     success_url = '../'
     success_msg = '==========================УСПЕШНО ЯБАТЬ=========================='
+
+    """def form_valid(self, form):
+        form_valid = super().form_valid(form)
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        aut_user = authenticate(username=username, password=password)
+        login(self, request, aut_user)
+        return form_valid"""
 

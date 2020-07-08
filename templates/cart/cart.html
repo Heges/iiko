@@ -1,19 +1,51 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block content %}
+{% if alist %}
+{% for obj in alist %}
 <section class="feature">
-    <div class="container">
-        <h2 class="section-header">Корзина</h2>
-        <div class="feature-slider">
-            <div class="feature-block">
-                <h3>Добавленые товары</h3>
-                <p>А здесь собственно добавленые товары</p>
-                <span class="money editContent"> и всего стоит столько то рублей</span>
-                <p>
-                    <a href="{% url 'dishes:index' %}">NAZAAAAAD</a>
-                </p>
-            </div>
+    <div class="col-md-9">
+        <h2 class="section-header">Товары в корзине</h2>
+        <div class="table-responsive">
+            <table class="table">
+                <tr class="info">
+                    <td class="info">№</td>
+                    <td class="info">Товар</td>
+                    <td class="info">Цена</td>
+                </tr>
+                <tr>
+                    <td class="info">{{ alist.count }}</td>
+                    <td class="info">{{ obj.name }}</td>
+                    <td class="info">{{ obj.price }}</td>
+                </tr>
+            </table>
+            <p><a href="{% url 'dishes:index' %}">NAZAAAAAD </a></p>
         </div>
     </div>
 </section>
+{% endfor %}
+{% else %}
+<section class="feature">
+    <div class="col-md-9">
+        <h2 class="section-header">Товары в корзине</h2>
+        <div class="table-responsive">
+            <table class="table">
+                <tr class="info">
+                    <td class="info">№</td>
+                    <td class="info">Товар</td>
+                    <td class="info">Цена</td>
+                </tr>
+                <tr>
+                    <td class="info">11111111111</td>
+                    <td class="info">11111111111</td>
+                    <td class="info">11111111111</td>
+                </tr>
+            </table>
+            <p><a href="{% url 'dishes:index' %}">NAZAAAAAD </a></p>
+        </div>
+    </div>
+    </div>
+    </div>
+</section>
+{% endif %}
 {% endblock content %}

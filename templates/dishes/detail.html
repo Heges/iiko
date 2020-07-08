@@ -2,27 +2,30 @@
 {% load static %}
 {% block content %}
 <section class="feature">
-    <div class="container">
-        <h2 class="section-header ">Детальное мендю</h2>
+    <div class="col-md-12">
+        <h2 class="section-header ">Детальное мендю
+                        {% if submitbutton == "Submit" %}
+                        <h1>Вы нажали на кнопку + {{object.id }}</h1>
+                        {% endif %}</h2>
         <div class="feature-slider">
             <div class="feature-block">
-                <div class="feature-img">
+                <div class="iner-content">
                     <picture>
                         <source srcset="" type="image/">
                         <img src="{{ object.image.url }}" width="400px" height="400px">
                     </picture>
                 </div>
                 <h3>{{object.name}}</h3>
-                <p>{{ object.description }}</p>
-                <div class="grid-price">
-                <span class="money editContent"> и всего стоит {{object.price}} рупей</span>
-                <p>
-                    <a href="{% url 'dishes:index' %}">NAZAAAAAD</a>
-                </p>
-                <p>
-                    <a href="#">Добавить в корзину</a>
-                </p>
-            </div>
+                <p>{{ object.description }} и всего стоит {{object.price}} рупей</p>
+                <div class="col-md-4">
+                    <form action="#" method="POST">
+                        {% csrf_token %}
+                    <p>
+                        <input class="button" type="Submit" name="submit" value="{{object.id}}" placeholder="Имя"><br>
+                        <a href="{% url 'dishes:index' %}">NAZAAAAAD</a>
+                    </p>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
