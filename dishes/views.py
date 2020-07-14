@@ -1,12 +1,16 @@
+import json
 from datetime import timezone
 
 from django.contrib.auth import authenticate, login
+from django.core import serializers
 from django.http import request, HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 from django.views import View
 from django.contrib.auth.views import LoginView, LogoutView
+
+from .cart import Cart
 from .forms import LoginUserForm, AuthUserForm
 from django.contrib.auth.models import User
 
@@ -21,19 +25,26 @@ class MainListView(ListView):
         return Dishes.objects.all().order_by('-id')[:6]
 
 
-class MainDetailView(DetailView):
-    model = Dishes
-    template_name = 'dishes/detail.html'
+class MainDetailView(View):
 
-    def post(self, request, *args, **kwargs):
+    def get(self, request, pk):
+        template_name = 'dishes/detail.html'
+        product_list = Dishes.objects.filter(id=pk)
+        product = get_object_or_404(Dishes, id=pk)
+        cart = Cart(request)
+        cart.add(item=product)
+        return render(request, template_name, context={'product_list': product_list, 'cart': cart})
 
+    def post(self, request, pk):
         if request.method == 'POST':
-            submitbutton = request.POST.get("submit")
-            alist = Dishes.objects.filter(id=submitbutton)
-            return render(request, 'cart/cart.html', {'alist': alist})
+            alist = Dishes.objects.filter(id=pk)
+            model_obj = Dishes.objects.get(id=pk)
+            data = serializers.serialize('json', [model_obj])
+            struct = json.loads(data)
+            data.json.dumps(struct[0])
+            return render(request, 'cart/cart.html', {'alist': alist, 'data': data})
         else:
             return redirect('./')
-
 
 
 class MainCategoryDishes(View):

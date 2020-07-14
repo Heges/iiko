@@ -1,12 +1,14 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block content %}
+{% for object in product_list %}
 <section class="feature">
     <div class="col-md-12">
         <h2 class="section-header ">Детальное мендю
-                        {% if submitbutton == "Submit" %}
-                        <h1>Вы нажали на кнопку + {{object.id }}</h1>
-                        {% endif %}</h2>
+            {% if submitbutton == "Submit" %}
+            <h1>Вы нажали на кнопку + {{object.id }}</h1>
+            {% endif %}
+        </h2>
         <div class="feature-slider">
             <div class="feature-block">
                 <div class="iner-content">
@@ -20,14 +22,18 @@
                 <div class="col-md-4">
                     <form action="#" method="POST">
                         {% csrf_token %}
-                    <p>
-                        <input class="button" type="Submit" name="submit" value="{{object.id}}" placeholder="Имя"><br>
-                        <a href="{% url 'dishes:index' %}">NAZAAAAAD</a>
-                    </p>
+                        <p>
+                            <button class="button" type="Submit" name="submit" value="{{object.id}}" placeholder="Имя">
+                                Сюда
+                            </button>
+                            <br>
+                            <a href="{% url 'dishes:index' %}">NAZAAAAAD</a>
+                            <p>{{cart}}</p>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </section>
+{% endfor %}
 {% endblock %}

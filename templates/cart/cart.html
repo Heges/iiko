@@ -5,7 +5,7 @@
 {% for obj in alist %}
 <section class="feature">
     <div class="col-md-9">
-        <h2 class="section-header">Товары в корзине</h2>
+        <h2 class="section-header">Товары в корзине lista alist</h2>
         <div class="table-responsive">
             <table class="table">
                 <tr class="info">
@@ -14,7 +14,7 @@
                     <td class="info">Цена</td>
                 </tr>
                 <tr>
-                    <td class="info">{{ alist.count }}</td>
+                    <td class="info">{{ alist.count }} {{ cart }}</td>
                     <td class="info">{{ obj.name }}</td>
                     <td class="info">{{ obj.price }}</td>
                 </tr>
@@ -24,10 +24,10 @@
     </div>
 </section>
 {% endfor %}
-{% else %}
+{% elif cart %}
 <section class="feature">
     <div class="col-md-9">
-        <h2 class="section-header">Товары в корзине</h2>
+        <h2 class="section-header">Товары в корзине lista cart</h2>
         <div class="table-responsive">
             <table class="table">
                 <tr class="info">
@@ -36,9 +36,32 @@
                     <td class="info">Цена</td>
                 </tr>
                 <tr>
+                    <td class="info">{{ cart_list.name }}</td>
                     <td class="info">11111111111</td>
                     <td class="info">11111111111</td>
-                    <td class="info">11111111111</td>
+                </tr>
+            </table>
+            <p><a href="{% url 'dishes:index' %}">NAZAAAAAD </a></p>
+        </div>
+    </div>
+    </div>
+    </div>
+</section>
+{% else %}
+<section class="feature">
+    <div class="col-md-9">
+        <h2 class="section-header">Товары в корзине prost else</h2>
+        <div class="table-responsive">
+            <table class="table">
+                <tr class="info">
+                    <td class="info">№</td>
+                    <td class="info">Товар</td>
+                    <td class="info">Цена</td>
+                </tr>
+                <tr>
+                    <td class="info">{{object_ses}}</td>
+                    <td class="info">{{ obj.name }}</td>
+                    <td class="info">{{ obj.price }}</td>
                 </tr>
             </table>
             <p><a href="{% url 'dishes:index' %}">NAZAAAAAD </a></p>
