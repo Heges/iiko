@@ -1,74 +1,35 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block content %}
-{% if alist %}
-{% for obj in alist %}
 <section class="feature">
     <div class="col-md-9">
-        <h2 class="section-header">Товары в корзине lista alist</h2>
+        <h2 class="section-header">Товары в корзине</h2>
         <div class="table-responsive">
+            {% for obj in cart %}
             <table class="table">
                 <tr class="info">
-                    <td class="info">№</td>
-                    <td class="info">Товар</td>
-                    <td class="info">Цена</td>
+                    <td class="info col-md-3">Товар</td>
+                    <td class="info col-md-3">Количество</td>
+                    <td class="info col-md-3">Цена</td>
                 </tr>
                 <tr>
-                    <td class="info">{{ alist.count }} {{ cart }}</td>
-                    <td class="info">{{ obj.name }}</td>
-                    <td class="info">{{ obj.price }}</td>
+                    <td class="info col-md-3">{{ obj.name }}</td>
+                    <form method="post">
+                    {% csrf_token %}
+                    <button class="button" type="Delete" name="delete" value=""></button>
+                    </form>
+                    <td class="info col-md-3">{{obj.quantity}}</td>
+                    <td class="info col-md-3">{{ obj.price }}</td>
+                    <td class="info col-md-3"><a href="{% url 'dishes:cartremoveview' obj.id %}">Удалить из корзины</a></td>
                 </tr>
+
             </table>
+            {% endfor %}
             <p><a href="{% url 'dishes:index' %}">NAZAAAAAD </a></p>
-        </div>
-    </div>
-</section>
-{% endfor %}
-{% elif cart %}
-<section class="feature">
-    <div class="col-md-9">
-        <h2 class="section-header">Товары в корзине lista cart</h2>
-        <div class="table-responsive">
-            <table class="table">
-                <tr class="info">
-                    <td class="info">№</td>
-                    <td class="info">Товар</td>
-                    <td class="info">Цена</td>
-                </tr>
-                <tr>
-                    <td class="info">{{ cart_list.name }}</td>
-                    <td class="info">11111111111</td>
-                    <td class="info">11111111111</td>
-                </tr>
-            </table>
-            <p><a href="{% url 'dishes:index' %}">NAZAAAAAD </a></p>
+            <button>Оплатить</button>
         </div>
     </div>
     </div>
     </div>
 </section>
-{% else %}
-<section class="feature">
-    <div class="col-md-9">
-        <h2 class="section-header">Товары в корзине prost else</h2>
-        <div class="table-responsive">
-            <table class="table">
-                <tr class="info">
-                    <td class="info">№</td>
-                    <td class="info">Товар</td>
-                    <td class="info">Цена</td>
-                </tr>
-                <tr>
-                    <td class="info">{{object_ses}}</td>
-                    <td class="info">{{ obj.name }}</td>
-                    <td class="info">{{ obj.price }}</td>
-                </tr>
-            </table>
-            <p><a href="{% url 'dishes:index' %}">NAZAAAAAD </a></p>
-        </div>
-    </div>
-    </div>
-    </div>
-</section>
-{% endif %}
 {% endblock content %}

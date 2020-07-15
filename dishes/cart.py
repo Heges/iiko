@@ -1,10 +1,11 @@
+from django.contrib.sessions.models import Session
+
 from dishes.models import Dishes
 
 
 class Cart(object):
 
     def __init__(self, request):
-
         self.session = request.session
         cart = self.session.get('cart')
         if not cart:
@@ -16,7 +17,8 @@ class Cart(object):
         if product_id not in self.cart:
             self.cart[product_id] = {'quantity': 1,
                                      'price': str(item.price),
-                                     'name': str(item.name)}
+                                     'name': str(item.name),
+                                     'id': item.id}
         self.session['cart'] = self.cart
         self.session.modified = True
 
@@ -28,4 +30,15 @@ class Cart(object):
 
         for item in self.cart.values():
             yield item
+
+    def remove(self, item):
+        product_id = str(item.id)
+        if product_id in self.cart:
+            del self.cart[product_id]
+            self.session['cart'] = self.cart
+            self.session.modified = True
+
+    def clear(self):
+        Session.objects.all().delete()
+
 

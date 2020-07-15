@@ -24,11 +24,10 @@
                         {% csrf_token %}
                         <p>
                             <button class="button" type="Submit" name="submit" value="{{object.id}}" placeholder="Имя">
-                                Сюда
+                                Добавить в корзину
                             </button>
                             <br>
                             <a href="{% url 'dishes:index' %}">NAZAAAAAD</a>
-                            <p>{{cart}}</p>
                     </form>
                 </div>
             </div>
