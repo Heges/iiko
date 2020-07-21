@@ -10,21 +10,20 @@
                 <tr class="info">
                     <td class="info col-md-3">Товар</td>
                     <td class="info col-md-3">Количество</td>
-                    <td class="info col-md-3">Цена</td>
+                    <td class="info col-md-3">Цена за штуку</td>
+                    <td class="info col-md-3">Общая цена</td>
                 </tr>
                 <tr>
                     <td class="info col-md-3">{{ obj.name }}</td>
-                    <form method="post">
-                    {% csrf_token %}
-                    <button class="button" type="Delete" name="delete" value=""></button>
-                    </form>
                     <td class="info col-md-3">{{obj.quantity}}</td>
                     <td class="info col-md-3">{{ obj.price }}</td>
+                    <td class="info col-md-3">{{ obj.total_price }}</td>
                     <td class="info col-md-3"><a href="{% url 'dishes:cartremoveview' obj.id %}">Удалить из корзины</a></td>
                 </tr>
 
             </table>
             {% endfor %}
+            <p>Общая стоймость {{ cart.get_total_price }}</p>
             <p><a href="{% url 'dishes:index' %}">NAZAAAAAD </a></p>
             <button>Оплатить</button>
         </div>

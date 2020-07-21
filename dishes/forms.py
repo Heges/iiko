@@ -32,3 +32,10 @@ class AuthUserForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+
+class SearchForm(forms.Form):
+    keyword = forms.CharField(max_length=50, label='Искомое слово')
+    #dishes = forms.ModelChoiceField(queryset=Dishes.objects.all(), label='Блюда')
+
+

@@ -3,79 +3,39 @@
 {% block content %}
 <section class="feature">
     <div class="col-md-12">
-        <h2 class="section-header">Wellcome u are wellcome</h2>
-        <div class="feature-slider">
-            <div class="feature-block">
-                <div class="col-md-1">
-                    <picture>
-                        <source srcset="" type="image/">
-                        <img class="img center-block" src="{% static 'logo.png' %}" style="width:1500px;"
-                             alt="посмотри назад">
-                    </picture>
-                </div>
-                <h3>посмотри назад</h3>
-                <p>Оглянись вперед, зажми глаза, услышь свой зов</p>
-            </div>
+        <h2 class="section-header">Поиск по сайту</h2>
+        <div class="col-md-9">
+            <form method="post">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="Search"/>
+            </form>
         </div>
     </div>
 </section>
 <section class="priec">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <div class="section-header section-header_light">
-                    <h2>Цены</h2>
-                    <p>Choice you are destini</p>
+    <h3>Самые популярные блюда</h3>
+    <div class="row iner-content">
+        {% for obj in dishes_list %}
+        <div class="clearfix">
+            <div class="image-box">
+                <img src="{{ obj.image.url }}" class="img-fluid" alt="" width="300px" height="300px">
+            </div>
+            <div class="box-content">
+                <h4>
+                    <a href="{{ dishes.get_absolute_url }}" class="editContent">{{ obj.name }}</a>
+                </h4>
+                <div class="box-price">
+                    <div class="grid-price">
+                        <span class="editContent">{{ obj.description }} {{obj.price }}</span>
+                        <p>
+                            <a href="{% url 'dishes:detail' obj.id %}">Подробнее</a>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="priece-block">
-                    <h4>Внешняя стороны земли</h4>
-                    <img src="img/300х200_1.jpg" alt="Внешняя стороны земли">
-                    <span class="prices-tag">Здесь мог быть ваш текст, но его <sup>нет</sup></span>
-                    <ul class="price-list">
-                        <li>Раз</li>
-                        <li>Два</li>
-                        <li>Три</li>
-                        <li>Четыре</li>
-                        <li>Пять</li>
-                    </ul>
-                    <button class="button">СаламэАшольАнорэ</button>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="priece-block">
-                    <h4>Внешняя стороны земли</h4>
-                    <img src="img/300х200_1.jpg" alt="Внешняя стороны земли">
-                    <span class="prices-tag">Здесь мог быть ваш текст, но его <sup>нет</sup></span>
-                    <ul class="price-list">
-                        <li>Раз</li>
-                        <li>Два</li>
-                        <li>Три</li>
-                        <li>Четыре</li>
-                        <li>Пять</li>
-                    </ul>
-                    <button class="button">СаламэАшольАнорэ</button>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="priece-block">
-                    <h4>Внешняя стороны земли</h4>
-                    <img src="img/300х200_1.jpg" alt="Внешняя стороны земли">
-                    <span class="prices-tag">Здесь мог быть ваш текст, но его <sup>нет</sup></span>
-                    <ul class="price-list">
-                        <li>Раз</li>
-                        <li>Два</li>
-                        <li>Три</li>
-                        <li>Четыре</li>
-                        <li>Пять</li>
-                    </ul>
-                    <button class="button">СаламэАшольАнорэ</button>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </section>
 <div class="popup">

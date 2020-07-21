@@ -21,7 +21,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('dishes.urls')),
-    #path('accounts/', include('django.contrib.auth.urls')),
 ]
 
 if settings.DEBUG:

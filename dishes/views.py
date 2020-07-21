@@ -1,20 +1,43 @@
+import simplejson as simplejson
+from django.contrib.auth import login, authenticate
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic import ListView, DetailView, CreateView, TemplateView
 from django.views import View
 from django.contrib.auth.views import LoginView, LogoutView
 
 from .cart import Cart
-from .forms import LoginUserForm, AuthUserForm
+from .forms import LoginUserForm, AuthUserForm, SearchForm
 from django.contrib.auth.models import User
 
 from .models import *
 
 
-class MainListView(ListView):
+class MainSerchResult(TemplateView):
+    template_name = 'dishes/search_result.html'
+
+
+class MainListView(TemplateView):
     template_name = 'dishes/index.html'
 
-    def get_queryset(self):
-        return Dishes.objects.all().order_by('-id')[:6]
+    def post(self, request):
+        if request.method == 'POST':
+            sf = SearchForm(request.POST)
+            if sf.is_valid():
+                keyword = sf.cleaned_data['keyword']
+                bbd = Dishes.objects.filter(name__icontains=keyword)
+                return render(request, 'dishes/search_result.html', {'bbd': bbd})
+            else:
+                sf = SearchForm()
+                return render(request, 'dishes/index.html', {'form': sf})
+
+    def get_context_data(self, **kwargs):
+        context = super(MainListView, self).get_context_data(**kwargs)
+        context['dishes_list'] = Dishes.objects.all().order_by('-id')[:3]
+        return context
+
+    # def get_queryset(self):
+    #     return Dishes.objects.all().order_by('-id')[:6]
 
 
 class MainDetailView(View):
@@ -30,8 +53,29 @@ class MainDetailView(View):
             cart = Cart(request)
             cart.add(item=product)
             return redirect('/cart/')
+        elif self.request.is_ajax():
+            return self.ajax(request)
         else:
             return redirect('./')
+    #переделать
+    def ajax(self, request):
+        response_dict = {
+            'success': True,
+        }
+        action = request.POST.get('action', '')
+
+        if action == 'add_to_cart':
+            cart_id = request.POST.get('id', '')
+
+        if hasattr(self, action):
+            response_dict = getattr(self, action)(request)
+            dishes_to_cart = Dishes.objects.get(id='cart_id')
+            response_dict = {
+                'car_name': dishes_to_cart.name
+            }
+
+        return HttpResponse(simplejson.dumps(response_dict),
+                            mimetype='application/json')
 
 
 class MainCategoryDishes(View):
@@ -93,9 +137,19 @@ class MainRegistrView(CreateView):
     success_msg = '==========================УСПЕШНО ЯБАТЬ=========================='
 
     # def form_valid(self, form):
-    # form_valid = super().form_valid(form)
-    # username = form.cleaned_data['username']
-    # password = form.cleaned_data['password']
-    # aut_user = authenticate(username=username, password=password)
-    # login(self, request, aut_user)
-    # return form_valid"""
+    #     form_valid = super().form_valid(form)
+    #     username = form.cleaned_data['username']
+    #     password = form.cleaned_data['password']
+    #     aut_user = authenticate(username=username, password=password)
+    #     login(self, request, aut_user)
+    #     return form_valid
+    #     new_user = RegisterForm(request.POST)
+    #     if new_user.is_valid():
+    #         new_user.save()
+    #         username = new_user.cleaned_data.get('username')
+    #         password = new_user.cleaned_data.get('password2')
+    #         user = auth.authenticate(username=username, password=password)
+    #         auth.login(request, user)
+    #         return redirect('../')
+    #         else:
+    #         return redirect('../login')

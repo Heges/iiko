@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.contrib.sessions.models import Session
 
 from dishes.models import Dishes
@@ -29,7 +31,12 @@ class Cart(object):
             self.cart[str(obj.id)]['obj'] = obj
 
         for item in self.cart.values():
+            item['total_price'] = item['price'] * item['quantity']
             yield item
+
+    def get_total_price(self):
+        return sum(Decimal(item['price']) * item['quantity'] for item in
+                   self.cart.values())
 
     def remove(self, item):
         product_id = str(item.id)
@@ -40,5 +47,3 @@ class Cart(object):
 
     def clear(self):
         Session.objects.all().delete()
-
-
