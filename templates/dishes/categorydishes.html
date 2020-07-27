@@ -7,12 +7,14 @@
     <h1 class="editContent">{{obj.name}}</h1>
     {% for subcat in obj.subdishes.all %}
     <div class="image-box ">
+        {% if obj.image %}
         <img src="{{ subcat.image.url }}" class="img-fluid" alt="" width="150px" height="150px">
+        {% endif %}
     </div>
     <div class="item-info-product">
         <h4>
             <a href="{% url 'dishes:categorydishes' subcat.slug %}" class="editContent" style="text-align:center;">
-                {{subcat.name }} </a>
+                {{ subcat.name }} </a>
         </h4>
     </div>
     {% endfor %}

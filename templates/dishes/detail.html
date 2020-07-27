@@ -1,5 +1,8 @@
 {% extends 'main.html' %}
 {% load static %}
+{% block javascript %}
+<script src="{% static 'js/cart.js' %}"></script>
+{% endblock %}
 {% block content %}
 {% for object in product_list %}
 <section class="feature">
@@ -20,15 +23,13 @@
                 <h3>{{object.name}}</h3>
                 <p>{{ object.description }} и всего стоит {{object.price}} рупей</p>
                 <div class="col-md-4">
-                    <form action="#" method="POST">
-                        {% csrf_token %}
-                        <p>
-                            <button class="button" type="Submit" name="submit" value="{{object.id}}" placeholder="Имя">
-                                Добавить в корзину
-                            </button>
-                            <br>
-                            <a href="{% url 'dishes:index' %}">NAZAAAAAD</a>
-                    </form>
+                    {% csrf_token %}
+                    <button type="button" class="btn btn-primary js-take-cart-id" data-id="{{object.id}}">
+                        <span class="glyphicon glyphicon-plus"></span>
+                        В корзину
+                    </button>
+                    <br>
+                    <a href="{% url 'dishes:index' %}">NAZAAAAAD</a>
                 </div>
             </div>
         </div>

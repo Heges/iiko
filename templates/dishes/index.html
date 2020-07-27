@@ -23,7 +23,7 @@
             </div>
             <div class="box-content">
                 <h4>
-                    <a href="{{ dishes.get_absolute_url }}" class="editContent">{{ obj.name }}</a>
+                    <a href="{% url 'dishes:detail' obj.id %}" class="editContent">{{ obj.name }}</a>
                 </h4>
                 <div class="box-price">
                     <div class="grid-price">
@@ -39,26 +39,22 @@
     </div>
 </section>
 <section class="priec">
-    <h3>Скидки на продукцию</h3>
-    <div class="box-content">
+    <h3 style="text-align:center;">Новости, статьи, рецепты</h3>
+    {% for articles_obj in articles_list %}
+    <div class="row">
         <h4>
-            <a href="{{ dishes.get_absolute_url }}" class="editContent">FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF1</a>
+            <a href="{% url 'dishes:articlesview' %}" style="padding: 10px;" class="badge badge-secondary">{{articles_obj.name}}</a>
         </h4>
-        <div class="col-md-4">
-            <div class="grid-price">
-                <span class="editContent">1</span>
+        <div class="clearfix">
+            <div class=col-md-4>
+                <span class="badge">{% lorem 10 w random %}</span>
                 <p>
                     <a href="#">Подробнее</a>
                 </p>
-                <!-- BUTTON TO TRIGGER THE ACTION -->
-                <p>
-                    <button type="button" class="btn btn-primary js-create-book">
-                        <span class="glyphicon glyphicon-plus"></span>
-                        knopka
-                    </button>
-                </p>
             </div>
         </div>
+
+        {% endfor %}
     </div>
 </section>
 <div class="popup">

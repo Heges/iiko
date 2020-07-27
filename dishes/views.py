@@ -24,23 +24,20 @@ class MainListView(TemplateView):
     template_name = 'dishes/index.html'
 
     def post(self, request):
-        if request.method == 'POST':
-            sf = SearchForm(request.POST)
-            if sf.is_valid():
-                keyword = sf.cleaned_data['keyword']
-                bbd = Dishes.objects.filter(name__icontains=keyword)
-                return render(request, 'dishes/search_result.html', {'bbd': bbd})
-            else:
-                sf = SearchForm()
-                return render(request, 'dishes/index.html', {'form': sf})
+        sf = SearchForm(request.POST)
+        if sf.is_valid():
+            keyword = sf.cleaned_data['keyword']
+            bbd = Dishes.objects.filter(name__icontains=keyword)
+            return render(request, 'dishes/search_result.html', {'bbd': bbd})
+        else:
+            sf = SearchForm()
+            return render(request, 'dishes/index.html', {'form': sf})
 
     def get_context_data(self, **kwargs):
         context = super(MainListView, self).get_context_data(**kwargs)
         context['dishes_list'] = Dishes.objects.all().order_by('-id')[:3]
+        context['articles_list'] = Articles.objects.all().order_by('-id')[:2]
         return context
-
-    # def get_queryset(self):
-    #     return Dishes.objects.all().order_by('-id')[:6]
 
 
 class MainDetailView(View):
@@ -51,35 +48,16 @@ class MainDetailView(View):
         return render(request, template_name, context={'product_list': product_list})
 
     def post(self, request, pk):
-        if request.method == 'POST':
-            product = get_object_or_404(Dishes, id=pk)
-            cart = Cart(request)
-            cart.add(item=product)
-            return redirect('/cart/')
-        elif self.request.is_ajax():
-            return self.ajax(request)
-        else:
-            return redirect('./')
-
-    # переделать
-    def ajax(self, request):
-        response_dict = {
-            'success': True,
+        obj_id = request.POST['id']
+        product = get_object_or_404(Dishes, id=pk)
+        cart = Cart(request)
+        cart.add(item=product)
+        obj = Dishes.objects.get(id=obj_id)
+        result = {
+            'name': obj.name,
+            'description': obj.description
         }
-        action = request.POST.get('action', '')
-
-        if action == 'add_to_cart':
-            cart_id = request.POST.get('id', '')
-
-        if hasattr(self, action):
-            response_dict = getattr(self, action)(request)
-            dishes_to_cart = Dishes.objects.get(id='cart_id')
-            response_dict = {
-                'car_name': dishes_to_cart.name
-            }
-
-        return HttpResponse(simplejson.dumps(response_dict),
-                            mimetype='application/json')
+        return JsonResponse(result, safe=False)
 
 
 class MainCategoryDishes(View):
