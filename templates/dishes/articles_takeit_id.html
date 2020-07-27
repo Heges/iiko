@@ -1,0 +1,23 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block javascript %}
+<script src="{% static 'js/poka.js' %}"></script>
+<script src="{% static 'js/privet.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<section class="feature">
+    {% for obj in artlist_list %}
+    <div class="col-md-12">
+        <h2 class="section-header ">{{obj.name}} </h2>
+        <div class="feature-slider">
+            <div class="feature-block">
+                <h3>{{obj.name}}</h3>
+                <p>{{lorem}}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock content %}

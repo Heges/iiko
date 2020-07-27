@@ -6,11 +6,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css" media="all">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" type="text/css"
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          type="text/css"
           media="all">
 </head>
 <body>
-<div class="wrapper" >
+<div class="wrapper">
     {% include 'include/header.html' %}
     <div class="row ">
         {% include 'include/sidebar.html' %}
@@ -18,6 +19,11 @@
             {% block content %}
 
             {% endblock content %}
+            <div>
+                <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+                {% block javascript %}
+                {% endblock %}
+            </div>
         </div>
     </div>
     {% include 'include/footer.html' %}

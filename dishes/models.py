@@ -60,5 +60,18 @@ class CategoryDishes(models.Model):
         return reverse("dishes:categorydishes", kwargs={"slug": self.slug})
 
 
+class Articles(models.Model):
+    name = models.CharField(max_length=100)
+    tag = models.CharField(max_length=20, null=True, blank=True)
+    deception = models.TextField(max_length=800)
 
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Статьи'
+        verbose_name_plural = 'Статьи'
+
+    def get_absolute_url(self):
+        return reverse('dishes:articles', kwargs={"pk": self.id})
 

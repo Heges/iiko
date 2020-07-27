@@ -39,3 +39,8 @@ class SearchForm(forms.Form):
     #dishes = forms.ModelChoiceField(queryset=Dishes.objects.all(), label='Блюда')
 
 
+class ArticlesForm(forms.ModelForm):
+    model = Articles
+    fields = {'name', 'tag', 'deception'}
+
+

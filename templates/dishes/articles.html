@@ -1,0 +1,55 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block javascript %}
+<script src="{% static 'js/poka.js' %}"></script>
+<script src="{% static 'js/privet.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<section class="feature">
+    <div class="col-md-9">
+        <h2 class="section-header">Товары в корзине</h2>
+        <div class="table-responsive">
+            <p>
+                {% csrf_token %}
+                <button type="button" class="btn btn-primary js-create-articles"
+                        data-url="{% url 'dishes:articlescreateview' %}">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    New articles
+                </button>
+            </p>
+            <table class="table" id="articles-table">
+                <thead>
+                <tr>
+                    <th>Название статьи</th>
+                    <th>id </th>
+                </tr>
+                </thead>
+                {% for obj in articles_list %}
+                <tbody>
+
+                <td>{{obj.name}}</td>
+                <td>{{obj.id}}</td>
+                <td><button type="button" class="btn btn-primary js-take-id" data-id="{{obj.id}}">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Взять айди
+                </button></td>
+
+                </tbody>
+                {% endfor %}
+                {% if request.POST %}
+                <p>AAAAAAAAAAAAA</p>
+                {% endif %}
+            </table>
+            <p><a href="{% url 'dishes:index' %}">NAZAAAAAD </a></p>
+        </div>
+
+        <div class="modal fade" id="modal-articles">
+            <div class="modal-dialog">
+                <div class="modal-content"></div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

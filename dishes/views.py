@@ -1,13 +1,16 @@
+import json
+
 import simplejson as simplejson
 from django.contrib.auth import login, authenticate
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
+from django.template.loader import render_to_string
 from django.views.generic import ListView, DetailView, CreateView, TemplateView
 from django.views import View
 from django.contrib.auth.views import LoginView, LogoutView
 
 from .cart import Cart
-from .forms import LoginUserForm, AuthUserForm, SearchForm
+from .forms import LoginUserForm, AuthUserForm, SearchForm, ArticlesForm
 from django.contrib.auth.models import User
 
 from .models import *
@@ -57,7 +60,8 @@ class MainDetailView(View):
             return self.ajax(request)
         else:
             return redirect('./')
-    #переделать
+
+    # переделать
     def ajax(self, request):
         response_dict = {
             'success': True,
@@ -153,3 +157,19 @@ class MainRegistrView(CreateView):
     #         return redirect('../')
     #         else:
     #         return redirect('../login')
+
+
+class MainArticles(View):
+
+    def get(self, request):
+        articles_list = Articles.objects.all()
+        return render(request, 'dishes/articles.html', {'articles_list': articles_list})
+
+    def post(self, request):
+        name = request.POST['id']
+        data = list(Articles.objects.values().filter(id=name))
+        return JsonResponse(data, safe=False)
+
+
+class MainArticlesCreate(View):
+    pass
