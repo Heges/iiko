@@ -14,13 +14,16 @@ class Cart(object):
             cart = request.session['cart'] = {}
         self.cart = cart
 
-    def add(self, item):
+    def add(self, item, quantity=1, update_quantity=False):
         product_id = item.id
         if product_id not in self.cart:
-            self.cart[product_id] = {'quantity': 1,
+            self.cart[product_id] = {'quantity': item.counts,
                                      'price': str(item.price),
                                      'name': str(item.name),
-                                     'id': item.id}
+                                     'id': item.id
+                                     }
+        if update_quantity:
+            self.cart[product_id]['quantity'] = quantity
         self.session['cart'] = self.cart
         self.session.modified = True
 
@@ -31,11 +34,11 @@ class Cart(object):
             self.cart[str(obj.id)]['obj'] = obj
 
         for item in self.cart.values():
-            item['total_price'] = item['price'] * item['quantity']
+            item['total_price'] = int(item['price']) * int(item['quantity'])
             yield item
 
     def get_total_price(self):
-        return sum(Decimal(item['price']) * item['quantity'] for item in
+        return sum(Decimal(item['price']) * int(item['quantity']) for item in
                    self.cart.values())
 
     def remove(self, item):
@@ -46,4 +49,16 @@ class Cart(object):
             self.session.modified = True
 
     def clear(self):
-        Session.objects.all().delete()
+        Session.objects['cart'].delete()
+
+    # def add_quantity(self, item, quantity):
+    #     product_id = item.id
+    #     if product_id in self.cart:
+    #         self.cart[product_id]['quantity'] = quantity
+    #         self.session['cart'] = self.cart
+    #         self.session.modified = True
+
+
+def get_quantity(self, item):
+    product_id = str(item.id)
+    return self.cart[product_id]['quantity']

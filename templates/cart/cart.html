@@ -1,10 +1,15 @@
 {% extends 'main.html' %}
 {% load static %}
+{% block javascript %}
+<script src="{% static 'js/cart_remove.js' %}"></script>
+<script src="{% static 'js/poka.js' %}"></script>
+{% endblock %}
 {% block content %}
 <section class="feature">
     <div class="col-md-9">
         <h2 class="section-header">Товары в корзине</h2>
         <div class="table-responsive">
+            {% csrf_token %}
             {% for obj in cart %}
             <table class="table">
                 <tr class="info">
@@ -15,10 +20,25 @@
                 </tr>
                 <tr>
                     <td class="info col-md-3">{{ obj.name }}</td>
-                    <td class="info col-md-3">{{obj.quantity}}</td>
+                    <td class="info col-md-3">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button id="minus" class="btn btn-danger" data-id="{{obj.id}}" type="button">-</button>
+                                </span>
+                                <input id="calc-button" type="text" class="form-control" data-id="{{obj.id}}" value="{{obj.quantity}}">
+                                <span class="input-group-btn">
+                                    <button id="plus" class="btn btn-success" data-id="{{obj.id}}" type="button">+</button>
+                                </span>
+                            </div>
+                    </td>
                     <td class="info col-md-3">{{ obj.price }}</td>
                     <td class="info col-md-3">{{ obj.total_price }}</td>
-                    <td class="info col-md-3"><a href="{% url 'dishes:cartremoveview' obj.id %}">Удалить из корзины</a></td>
+                    <td class="info col-md-3"><a href="{% url 'dishes:cartremoveview' obj.id %}">Удалить из корзины</a>
+                    <button type="button" class="btn btn-primary js-take-cart-id-delete" data-id="{{obj.id}}">
+                        <span class="glyphicon glyphicon-plus"></span>
+                        Удалить из корзины
+                    </button>
+                    </td>
                 </tr>
 
             </table>

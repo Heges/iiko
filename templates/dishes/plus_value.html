@@ -1,0 +1,37 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block javascript %}
+<script src="{% static 'js/cart.js' %}"></script>
+{% endblock %}
+{% block content %}
+{% for object in product_list %}
+<section class="feature">
+    <div class="col-md-12">
+        <h2 class="section-header ">Plus Value
+
+        </h2>
+        <div class="feature-slider">
+            <div class="feature-block">
+                <div class="iner-content">
+                    <picture>
+                        <source srcset="" type="image/">
+                        <img src="{{ object.image.url }}" width="400px" height="400px">
+                    </picture>
+                </div>
+                <h3>{{object.name}}</h3>
+                <p>{{ object.description }} и всего стоит {{object.price}} рупей</p>
+                <div class="col-md-4">
+                    {% csrf_token %}
+                    <button type="button" class="btn btn-primary js-take-cart-id" data-id="{{object.id}}">
+                        <span class="glyphicon glyphicon-plus"></span>
+                        В корзину
+                    </button>
+                    <br>
+                    <a href="{% url 'dishes:index' %}">NAZAAAAAD</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endfor %}
+{% endblock %}

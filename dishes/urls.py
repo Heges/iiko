@@ -16,4 +16,5 @@ path('remove/<int:pk>/', views.MainCartRemove.as_view(), {'key': 'remove'}, name
 path('search_result/', views.MainSerchResult.as_view(), name='searchresultview'),
 path('articles/', views.MainArticles.as_view(), name='articlesview'),
 path('articles/create/', views.MainArticlesCreate.as_view(), name='articlescreateview'),
+path('cart/plusValue/', views.MainCartPlusValue.as_view(), name='plusValueview'),
 ]

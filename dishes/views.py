@@ -1,6 +1,7 @@
 import json
 
 import simplejson as simplejson
+from PIL.SpiderImagePlugin import isInt
 from django.contrib.auth import login, authenticate
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
@@ -51,7 +52,7 @@ class MainDetailView(View):
         obj_id = request.POST['id']
         product = get_object_or_404(Dishes, id=pk)
         cart = Cart(request)
-        cart.add(item=product)
+        cart.add(item=product, quantity=1, update_quantity=False)
         obj = Dishes.objects.get(id=obj_id)
         result = {
             'name': obj.name,
@@ -84,9 +85,43 @@ class MainCartRemove(View):
         cart.remove(product)
 
 
+class MainCartPlusValue(View):
+
+    def post(self, request):
+        print(request.POST)
+        a = dict()
+        a = {
+            'id': request.POST['id'],
+            'counts': request.POST['counts']
+        }
+        product = get_object_or_404(Dishes, id=request.POST['id'])
+        cart = Cart(request)
+        count = int(request.POST['counts'])
+        if count <= 0:
+            print('меньше')
+            ad = int(product.id)
+            MainCartRemove.cart_remove(MainCartRemove, request, pk=ad)
+            print('меньше1')
+            cart.remove(product)
+        cart.add(item=product, quantity=request.POST['counts'], update_quantity=True)
+        return JsonResponse(a)
+
+
 class MainCartView(TemplateView):
     template_name = 'cart/cart.html'
     success_url = 'cart.html'
+
+    def post(self, request):
+        obj = Dishes.objects.get(id=request.POST['id'])
+        result = {
+            'id': obj.id,
+            'name': obj.name,
+            'quantity': obj.counts
+        }
+        cart = Cart(request)
+        product = get_object_or_404(Dishes, id=obj.id)
+        cart.remove(product)
+        return JsonResponse(result, safe=False)
 
     def get_context_data(self, **kwargs):
         context = super(MainCartView, self).get_context_data(**kwargs)
