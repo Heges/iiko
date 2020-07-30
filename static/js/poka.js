@@ -1,9 +1,9 @@
 
 
 $(function () {
-$('#minus').click(function(){
- $("#calc-button").val(parseInt($("#calc-button").val())-1),
- alert( $("#calc-button").val());
+$('.minus').click(function(){
+ $(".calc-button").val(parseInt($(this).val())-1);
+ alert( $(".calc-button").val());
  const csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
 $.ajaxSetup({
     beforeSend: function(xhr, settings) {
@@ -16,7 +16,7 @@ $.ajaxSetup({
       dataType: 'json',
       data: {
         'id': $(this).data("id"),
-        'counts': $("#calc-button").val(),
+        'counts': $(".calc-button").val(),
       },
        success: function(data) {
         alert("Вы кликнули на кнопку и ее значение = "+ data['counts']);
@@ -24,9 +24,9 @@ $.ajaxSetup({
     }
     });
 });
-$('#plus').click(function(){
- $("#calc-button").val(parseInt($("#calc-button").val())+1),
- alert( $("#calc-button").val());
+$('.plus').click(function(){
+ $(".calc-button").val(parseInt($(this).val())+1);
+ alert( $(".calc-button").val());
  const csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
 $.ajaxSetup({
     beforeSend: function(xhr, settings) {
@@ -39,7 +39,7 @@ $.ajaxSetup({
       dataType: 'json',
       data: {
         'id': $(this).data("id"),
-        'counts': $("#calc-button").val(),
+        'counts': $(".calc-button").val(),
       },
        success: function(data) {
         alert("Вы кликнули на кнопку и ее значение = "+ data['counts']);

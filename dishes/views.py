@@ -32,12 +32,13 @@ class MainListView(TemplateView):
             return render(request, 'dishes/search_result.html', {'bbd': bbd})
         else:
             sf = SearchForm()
-            return render(request, 'dishes/index.html', {'form': sf})
+            return render(request, 'dishes/index.html')
 
     def get_context_data(self, **kwargs):
         context = super(MainListView, self).get_context_data(**kwargs)
         context['dishes_list'] = Dishes.objects.all().order_by('-id')[:3]
-        context['articles_list'] = Articles.objects.all().order_by('-id')[:2]
+        context['articles_list'] = Articles.objects.all().order_by('-id')[:3]
+        context['form'] = SearchForm()
         return context
 
 
@@ -94,15 +95,9 @@ class MainCartPlusValue(View):
             'id': request.POST['id'],
             'counts': request.POST['counts']
         }
-        product = get_object_or_404(Dishes, id=request.POST['id'])
+        obj = Dishes.objects.get(id=request.POST['id'])
+        product = get_object_or_404(Dishes, id=obj.id)
         cart = Cart(request)
-        count = int(request.POST['counts'])
-        if count <= 0:
-            print('меньше')
-            ad = int(product.id)
-            MainCartRemove.cart_remove(MainCartRemove, request, pk=ad)
-            print('меньше1')
-            cart.remove(product)
         cart.add(item=product, quantity=request.POST['counts'], update_quantity=True)
         return JsonResponse(a)
 
@@ -153,24 +148,6 @@ class MainRegistrView(CreateView):
     success_url = '../'
     success_msg = '==========================УСПЕШНО ЯБАТЬ=========================='
 
-    # def form_valid(self, form):
-    #     form_valid = super().form_valid(form)
-    #     username = form.cleaned_data['username']
-    #     password = form.cleaned_data['password']
-    #     aut_user = authenticate(username=username, password=password)
-    #     login(self, request, aut_user)
-    #     return form_valid
-    #     new_user = RegisterForm(request.POST)
-    #     if new_user.is_valid():
-    #         new_user.save()
-    #         username = new_user.cleaned_data.get('username')
-    #         password = new_user.cleaned_data.get('password2')
-    #         user = auth.authenticate(username=username, password=password)
-    #         auth.login(request, user)
-    #         return redirect('../')
-    #         else:
-    #         return redirect('../login')
-
 
 class MainArticles(View):
 
@@ -182,6 +159,13 @@ class MainArticles(View):
         name = request.POST['id']
         data = list(Articles.objects.values().filter(id=name))
         return JsonResponse(data, safe=False)
+
+
+class MainArticlesDetail(View):
+
+    def get(self, request, pk):
+        articles_detail = Articles.objects.filter(id=pk)
+        return render(request, 'dishes/articles_detail.html', {'articles_detail': articles_detail})
 
 
 class MainArticlesCreate(View):

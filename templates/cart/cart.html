@@ -13,6 +13,7 @@
             {% for obj in cart %}
             <table class="table">
                 <tr class="info">
+
                     <td class="info col-md-3">Товар</td>
                     <td class="info col-md-3">Количество</td>
                     <td class="info col-md-3">Цена за штуку</td>
@@ -21,23 +22,27 @@
                 <tr>
                     <td class="info col-md-3">{{ obj.name }}</td>
                     <td class="info col-md-3">
-                            <div class="input-group">
+                        <div class="input-group">
                                 <span class="input-group-btn">
-                                    <button id="minus" class="btn btn-danger" data-id="{{obj.id}}" type="button">-</button>
+                                    <button id="minus" class="btn btn-danger minus" data-id="{{obj.id}}" value="{{obj.quantity}}"
+                                            type="button">-</button>
                                 </span>
-                                <input id="calc-button" type="text" class="form-control" data-id="{{obj.id}}" value="{{obj.quantity}}">
-                                <span class="input-group-btn">
-                                    <button id="plus" class="btn btn-success" data-id="{{obj.id}}" type="button">+</button>
+                            <input id="calc-button" type="text" class="form-control calc-button" data-id="{{obj.id}}"
+                                   value="{{obj.quantity}}">
+                            <span class="input-group-btn">
+                                    <button id="plus" class="btn btn-success plus" data-id="{{obj.id}}" value="{{obj.quantity}}"
+                                            type="button">+</button>
                                 </span>
-                            </div>
+
+                        </div>
                     </td>
                     <td class="info col-md-3">{{ obj.price }}</td>
                     <td class="info col-md-3">{{ obj.total_price }}</td>
                     <td class="info col-md-3"><a href="{% url 'dishes:cartremoveview' obj.id %}">Удалить из корзины</a>
-                    <button type="button" class="btn btn-primary js-take-cart-id-delete" data-id="{{obj.id}}">
-                        <span class="glyphicon glyphicon-plus"></span>
-                        Удалить из корзины
-                    </button>
+                        <button type="button" class="btn btn-primary js-take-cart-id-delete" data-id="{{obj.id}}">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            Удалить из корзины
+                        </button>
                     </td>
                 </tr>
 

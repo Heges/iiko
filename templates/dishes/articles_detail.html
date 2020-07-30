@@ -1,0 +1,23 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block javascript %}
+{% endblock %}
+
+{% block content %}
+<section class="feature">
+    <div class="col-md-9">
+        <h2 class="section-header">Новости, статьи, рецепты</h2>
+        {% for obj in articles_detail %}
+        <h5>{{obj.name}}</h5>
+        <span>{% lorem %}</span>
+        <p>{{obj.tag}}</p>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary">Like</button>
+            <button type="button" class="btn btn-secondary">Dislike</button>
+        </div>
+        <p><a href="{% url 'dishes:index' %}">NAZAAAAAD </a></p>
+    </div>
+    {% endfor %}
+</section>
+{% endblock content %}

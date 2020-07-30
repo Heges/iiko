@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 from django.urls import reverse
@@ -75,3 +76,7 @@ class Articles(models.Model):
     def get_absolute_url(self):
         return reverse('dishes:articles', kwargs={"pk": self.id})
 
+
+class Thumbslike(models.Model):
+    thumbnumber = models.IntegerField(default=0, help_text="Начинается с 0", verbose_name="Число лайков")
+    likedone = models.ManyToManyField(User, related_name='users')

@@ -9,7 +9,7 @@
 {% block content %}
 <section class="feature">
     <div class="col-md-9">
-        <h2 class="section-header">Статьи</h2>
+        <h2 class="section-header">Новости, статьи, рецепты</h2>
         <div class="table-responsive">
             <p>
                 {% csrf_token %}
@@ -23,24 +23,25 @@
                 <thead>
                 <tr>
                     <th>Название статьи</th>
-                    <th>id </th>
+                    <th>Тэг</th>
+                    <th></th>
                 </tr>
                 </thead>
                 {% for obj in articles_list %}
                 <tbody>
 
                 <td>{{obj.name}}</td>
-                <td>{{obj.id}}</td>
-                <td><button type="button" class="btn btn-primary js-take-id" data-id="{{obj.id}}">
-                    <span class="glyphicon glyphicon-plus"></span>
-                    Взять айди
-                </button></td>
+                <td>{{obj.tag}}</td>
+                <td>
+                    <a href="{% url 'dishes:articlesdetailview' obj.id %}">
+                        <button type="button" class="btn btn-primary js-take-id" data-id="{{obj.id}}">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            Перейти к статье
+                        </button>
+                    </a></td>
 
                 </tbody>
                 {% endfor %}
-                {% if request.POST %}
-                <p>AAAAAAAAAAAAA</p>
-                {% endif %}
             </table>
             <p><a href="{% url 'dishes:index' %}">NAZAAAAAD </a></p>
         </div>

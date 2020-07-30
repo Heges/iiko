@@ -38,6 +38,11 @@ class SearchForm(forms.Form):
     keyword = forms.CharField(max_length=50, label='Искомое слово')
     #dishes = forms.ModelChoiceField(queryset=Dishes.objects.all(), label='Блюда')
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'col-md-3'
+
 
 class ArticlesForm(forms.ModelForm):
     model = Articles

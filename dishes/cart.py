@@ -24,6 +24,7 @@ class Cart(object):
                                      }
         if update_quantity:
             self.cart[product_id]['quantity'] = quantity
+            print(self.cart[product_id]['quantity'])
         self.session['cart'] = self.cart
         self.session.modified = True
 

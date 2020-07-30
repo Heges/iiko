@@ -1,10 +1,10 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block content %}
-<section class="feature">
+<section class="row">
     <div class="col-md-12">
-        <h2 class="section-header">Поиск по сайту</h2>
-        <div class="col-md-9">
+        <h2 style="text-align: right;">Поиск по сайту</h2>
+        <div class="col-md-12" style="text-align: right;">
             <form method="post">
                 {% csrf_token %}
                 {{ form }}
@@ -13,8 +13,25 @@
         </div>
     </div>
 </section>
-<section class="priec">
-    <h3>Самые популярные блюда</h3>
+<section class="row">
+    <div class="col-md-12"><h3 style="text-align: center;">Новости, статьи, рецепты</h3></div>
+    {% for articles_obj in articles_list %}
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                <img src="#" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">{{ articles_obj.name }}</h5>
+                    <p class="card-text">{% lorem 10 w random %}</p>
+                    <a href="{% url 'dishes:articlesdetailview' articles_obj.id %}" class="btn btn-primary">Переход
+                        куда-нибудь</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+</section>
+<section class="row">
+    <div class="col-md-12"><h3 style="text-align: center;">Самые популярные блюда</h3></div>
+
     <div class="row iner-content">
         {% for obj in dishes_list %}
         <div class="clearfix">
@@ -38,46 +55,4 @@
         {% endfor %}
     </div>
 </section>
-<section class="priec">
-    <h3 style="text-align:center;">Новости, статьи, рецепты</h3>
-    {% for articles_obj in articles_list %}
-    <div class="row">
-        <h4>
-            <a href="{% url 'dishes:articlesview' %}" style="padding: 10px;" class="badge badge-secondary">{{articles_obj.name}}</a>
-        </h4>
-        <div class="clearfix">
-            <div class=col-md-4>
-                <span class="badge">{% lorem 10 w random %}</span>
-                <p>
-                    <a href="#">Подробнее</a>
-                </p>
-            </div>
-        </div>
-
-        {% endfor %}
-    </div>
-</section>
-<div class="popup">
-    <div class="popup-dialog">
-        <div class="popup-content">
-            <button class="popup-close">&times;</button>
-            <h4 class="popup-header">
-                Attention attention
-            </h4>
-            <p>do u see that modal window?</p>
-            <div class="main-form popup-form">
-                <form action="#">
-                    <label for="#">Text one</label>
-                    <input type="text" class="main-form-input">
-                    <label for="#">Text second</label>
-                    <input type="text" class="main-form-input">
-                    <label for="#">Text area</label>
-                    <textarea class="main-form-input" rows="5"></textarea>
-                    <button class="button" type="submit">Извольте</button>
-                    <small>получили уже по жёпе?</small>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 {% endblock content %}

@@ -129,9 +129,14 @@ wrap {
 }
 .priec {
   background: #46b814 url(../img/alliance_21.jpg) no-repeat center;
+  box-sizing: border-box;
 }
 .priec-header-btn {
   margin-top: 2.5rem;
+}
+.sectionrow {
+    margin: 0 auto;
+    box-sizing: border-box;
 }
 .popup {
   display: none;
