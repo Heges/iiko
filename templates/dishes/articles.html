@@ -1,11 +1,9 @@
 {% extends 'main.html' %}
 {% load static %}
-
 {% block javascript %}
 <script src="{% static 'js/poka.js' %}"></script>
 <script src="{% static 'js/privet.js' %}"></script>
 {% endblock %}
-
 {% block content %}
 <section class="feature">
     <div class="col-md-9">
@@ -29,7 +27,6 @@
                 </thead>
                 {% for obj in articles_list %}
                 <tbody>
-
                 <td>{{obj.name}}</td>
                 <td>{{obj.tag}}</td>
                 <td>
@@ -39,13 +36,11 @@
                             Перейти к статье
                         </button>
                     </a></td>
-
                 </tbody>
                 {% endfor %}
             </table>
             <p><a href="{% url 'dishes:index' %}">NAZAAAAAD </a></p>
         </div>
-
         <div class="modal fade" id="modal-articles">
             <div class="modal-dialog">
                 <div class="modal-content"></div>

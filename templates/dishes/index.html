@@ -18,7 +18,7 @@
     {% for articles_obj in articles_list %}
         <div class="col-md-4">
             <div class="card" style="width: 18rem;">
-                <img src="#" class="card-img-top">
+                <img src="{% static 'Thonks.png' %}" class="card-img-top">
                 <div class="card-body">
                     <h5 class="card-title">{{ articles_obj.name }}</h5>
                     <p class="card-text">{% lorem 10 w random %}</p>

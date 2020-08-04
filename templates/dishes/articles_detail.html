@@ -2,21 +2,38 @@
 {% load static %}
 
 {% block javascript %}
+<script src="{% static 'js/add_like2.js' %}"></script>
 {% endblock %}
 
 {% block content %}
-<section class="feature">
+<section class="row">
     <div class="col-md-9">
+        {% csrf_token %}
         <h2 class="section-header">Новости, статьи, рецепты</h2>
         {% for obj in articles_detail %}
         <h5>{{obj.name}}</h5>
         <span>{% lorem %}</span>
         <p>{{obj.tag}}</p>
-        <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-secondary">Like</button>
-            <button type="button" class="btn btn-secondary">Dislike</button>
-        </div>
+        <p>{{obj.like}} - like</p>
         <p><a href="{% url 'dishes:index' %}">NAZAAAAAD </a></p>
+        <p><a href="{% url 'dishes:articles_like' obj.id %}">K LIKE </a></p>
+    </div>
+    <div class="col-md-3">
+        <div class="card" style="width: 18rem; text-align: center;">
+            <img src="{% static 'Thonks.png' %}" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">{{obj.name}}</h5>
+            </div>
+            <div class="btn-group col-md-12" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-secondary like col-md-6"
+                        data-id="{{ like_obj.id }}" data-type="article" data-action="like" title="Нравится">Like
+                </button>
+                <span class="glyphicon glyphicon-thumbs-up"></span>
+                <span data-count="like">{{ like_obj.votes.likes.count }}</span>
+                <button type="button" class="btn btn-secondary dislike col-md-6">Dislike</button>
+            </div>
+
+        </div>
     </div>
     {% endfor %}
 </section>

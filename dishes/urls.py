@@ -1,6 +1,8 @@
+from django.contrib.auth.decorators import login_required
 from django.urls import path, reverse
 
 from . import views
+from .models import Articles, LikeDislike
 
 app_name = 'dishes'
 
@@ -17,5 +19,9 @@ path('search_result/', views.MainSerchResult.as_view(), name='searchresultview')
 path('articles/', views.MainArticles.as_view(), name='articlesview'),
 path('articles/<int:pk>/', views.MainArticlesDetail.as_view(), name='articlesdetailview'),
 path('articles/create/', views.MainArticlesCreate.as_view(), name='articlescreateview'),
+path('articles/changelike/', views.MainArticlesChange.as_view(), name='articleschangelike'),
 path('cart/plusValue/', views.MainCartPlusValue.as_view(), name='plusValueview'),
+path('votes/<int:pk>/like/', views.MainVotesView.as_view(model=Articles, vote_type=LikeDislike.LIKE), name='articles_like'),
+path('votes/<int:pk>/dislike/', login_required(views.MainVotesView.as_view(model=Articles, vote_type=LikeDislike.DISLIKE)),
+     name='articles_dislike'),
 ]

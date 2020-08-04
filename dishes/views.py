@@ -3,6 +3,7 @@ import json
 import simplejson as simplejson
 from PIL.SpiderImagePlugin import isInt
 from django.contrib.auth import login, authenticate
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.template.loader import render_to_string
@@ -170,3 +171,55 @@ class MainArticlesDetail(View):
 
 class MainArticlesCreate(View):
     pass
+
+
+class MainArticlesChange(TemplateView):
+    template = 'dishes/articles_change.html'
+
+    def post(self, request):
+        if request.user.is_authenticated:
+            current_user = request.user
+            id_articles_for_like = request.POST['id']
+
+            return HttpResponse('Uraaaa')
+
+    def get_context_data(self, **kwargs):
+        context = super(MainArticlesChange, self).get_context_data(**kwargs)
+        return context
+
+
+class MainVotesView(View):
+    model = None
+    vote_type = None
+    template = 'dishes/articles_detail.html'
+    print('Перешли в MainVotesView')
+
+    def post(self, request, pk):
+        print('был post ')
+        obj = self.model.objects.get(pk=pk)
+        # GenericForeignKey не поддерживает метод get_or_create
+        try:
+            likedislike = LikeDislike.objects.get(content_type=ContentType.objects.get_for_model(obj), object_id=obj.id,
+                                                  username=request.user)
+            if likedislike.vote is not self.vote_type:
+                likedislike.vote = self.vote_type
+                likedislike.save(update_fields=['vote'])
+                result = True
+            else:
+                likedislike.delete()
+                result = False
+        except likedislike.DoesNotExist:
+            obj.votes.create(user=request.user, vote=self.vote_type)
+            result = True
+
+        return HttpResponse(
+            json.dumps({
+                'result': result,
+                'like_count': obj.votes.likes().count(),
+                'dislike_count': obj.votes.dislike().count(),
+                'sum_rating': obj.votes.sum_rating()
+
+                }
+            ), content_type='application/json'
+        )
+
