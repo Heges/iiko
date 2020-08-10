@@ -191,16 +191,13 @@ class MainArticlesChange(TemplateView):
 class MainVotesView(View):
     model = None
     vote_type = None
-    template = 'dishes/articles_detail.html'
-    print('Перешли в MainVotesView')
 
     def post(self, request, pk):
-        print('был post ')
         obj = self.model.objects.get(pk=pk)
         # GenericForeignKey не поддерживает метод get_or_create
         try:
             likedislike = LikeDislike.objects.get(content_type=ContentType.objects.get_for_model(obj), object_id=obj.id,
-                                                  username=request.user)
+                                                  user=request.user)
             if likedislike.vote is not self.vote_type:
                 likedislike.vote = self.vote_type
                 likedislike.save(update_fields=['vote'])
@@ -208,7 +205,7 @@ class MainVotesView(View):
             else:
                 likedislike.delete()
                 result = False
-        except likedislike.DoesNotExist:
+        except LikeDislike.DoesNotExist:
             obj.votes.create(user=request.user, vote=self.vote_type)
             result = True
 
@@ -216,7 +213,7 @@ class MainVotesView(View):
             json.dumps({
                 'result': result,
                 'like_count': obj.votes.likes().count(),
-                'dislike_count': obj.votes.dislike().count(),
+                'dislike_count': obj.votes.dislikes().count(),
                 'sum_rating': obj.votes.sum_rating()
 
                 }

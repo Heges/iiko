@@ -21,7 +21,8 @@ path('articles/<int:pk>/', views.MainArticlesDetail.as_view(), name='articlesdet
 path('articles/create/', views.MainArticlesCreate.as_view(), name='articlescreateview'),
 path('articles/changelike/', views.MainArticlesChange.as_view(), name='articleschangelike'),
 path('cart/plusValue/', views.MainCartPlusValue.as_view(), name='plusValueview'),
-path('votes/<int:pk>/like/', views.MainVotesView.as_view(model=Articles, vote_type=LikeDislike.LIKE), name='articles_like'),
+path('votes/<int:pk>/like/', login_required(views.MainVotesView.as_view(model=Articles, vote_type=LikeDislike.LIKE)),
+     name='articles_like'),
 path('votes/<int:pk>/dislike/', login_required(views.MainVotesView.as_view(model=Articles, vote_type=LikeDislike.DISLIKE)),
      name='articles_dislike'),
 ]

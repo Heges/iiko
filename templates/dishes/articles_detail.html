@@ -2,7 +2,8 @@
 {% load static %}
 
 {% block javascript %}
-<script src="{% static 'js/add_like2.js' %}"></script>
+<script src="{% static 'js/dislike_article.js' %}"></script>
+<script src="{% static 'js/like_article.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -14,9 +15,9 @@
         <h5>{{obj.name}}</h5>
         <span>{% lorem %}</span>
         <p>{{obj.tag}}</p>
-        <p>{{obj.like}} - like</p>
+        <p>{{obj.votes.likes.count}} - like</p>
+        <p>{{obj.votes.dislikes.count}} - dislike</p>
         <p><a href="{% url 'dishes:index' %}">NAZAAAAAD </a></p>
-        <p><a href="{% url 'dishes:articles_like' obj.id %}">K LIKE </a></p>
     </div>
     <div class="col-md-3">
         <div class="card" style="width: 18rem; text-align: center;">
@@ -26,13 +27,14 @@
             </div>
             <div class="btn-group col-md-12" role="group" aria-label="Basic example">
                 <button type="button" class="btn btn-secondary like col-md-6"
-                        data-id="{{ like_obj.id }}" data-type="article" data-action="like" title="Нравится">Like
+                        data-id="{{ obj.id }}" data-type="article" data-action="like" title="Нравится">Like
+                    <span data-count="like">{{ obj.votes.likes.count }}</span>
                 </button>
-                <span class="glyphicon glyphicon-thumbs-up"></span>
-                <span data-count="like">{{ like_obj.votes.likes.count }}</span>
-                <button type="button" class="btn btn-secondary dislike col-md-6">Dislike</button>
+                <button type="button" class="btn btn-secondary dislike col-md-6"
+                        data-id="{{ obj.id }}" data-type="article" data-action="dislike" title="Не нравится">Dislike
+                 <span data-count="dislike">{{ obj.votes.dislikes.count }}</span>
+                </button>
             </div>
-
         </div>
     </div>
     {% endfor %}

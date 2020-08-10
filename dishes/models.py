@@ -85,7 +85,7 @@ class LikeDislikeManager(models.Manager):
 
 class LikeDislike(models.Model):
     LIKE = 1
-    DISLIKE = 1
+    DISLIKE = -1
 
     VOTES = (
         (DISLIKE, 'Не нравится'),
@@ -106,7 +106,6 @@ class Articles(models.Model):
     name = models.CharField(max_length=100)
     tag = models.CharField(max_length=20, null=True, blank=True)
     deception = models.TextField(max_length=800)
-    like = models.IntegerField(default=0, help_text="Начинается с 0", verbose_name="Число лайков")
     votes = GenericRelation(LikeDislike, related_query_name='articles')
 
     def __str__(self):
