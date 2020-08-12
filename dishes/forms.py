@@ -45,7 +45,8 @@ class SearchForm(forms.Form):
 
 
 class ArticlesForm(forms.ModelForm):
-    model = Articles
-    fields = {'name', 'tag', 'deception'}
+    class Meta:
+        model = Articles
+        fields = {'name', 'tag', 'deception'}
 
 

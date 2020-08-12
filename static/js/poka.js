@@ -1,5 +1,3 @@
-
-
 $(function () {
 $('.minus').click(function(){
  $(".calc-button").val(parseInt($(this).val())-1);

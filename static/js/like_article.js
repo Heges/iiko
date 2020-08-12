@@ -1,4 +1,3 @@
-
 $(function () {
 $('.like').click(function(){
  const csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
@@ -27,4 +26,3 @@ $.ajaxSetup({
     return false;
 });
 });
-

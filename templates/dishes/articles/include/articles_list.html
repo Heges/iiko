@@ -1,0 +1,17 @@
+{% for obj in articles_list %}
+<tr>
+    <td>{{obj.name}}</td>
+    <td>{{obj.tag}}</td>
+    <td>
+        <a href="{% url 'dishes:articlesdetailview' obj.id %}">
+            <button type="button" class="btn btn-primary js-take-id" data-id="{{obj.id}}">
+                <span class="glyphicon glyphicon-plus"></span>
+                Перейти к статье
+            </button>
+        </a></td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="8" class="text-center bg-warning">No articles</td>
+</tr>
+{% endfor %}

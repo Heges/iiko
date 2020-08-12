@@ -7,6 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.template.loader import render_to_string
+from django.views.decorators import csrf
 from django.views.generic import ListView, DetailView, CreateView, TemplateView
 from django.views import View
 from django.contrib.auth.views import LoginView, LogoutView
@@ -161,6 +162,9 @@ class MainArticles(View):
         data = list(Articles.objects.values().filter(id=name))
         return JsonResponse(data, safe=False)
 
+    def put(self, request):
+        return HttpResponse('uraaa')
+
 
 class MainArticlesDetail(View):
 
@@ -170,7 +174,33 @@ class MainArticlesDetail(View):
 
 
 class MainArticlesCreate(View):
-    pass
+
+    def post(self, request):
+        data_form = {}
+        form = ArticlesForm(request.POST)
+        if form.is_valid():
+            form.save()
+            data_form['form_is_valid'] = True
+            articles_list = Articles.objects.all()
+            data_form['html_to_list'] = render_to_string('dishes/articles/include/articles_list.html', {
+                'articles_list': articles_list
+            })
+        else:
+            data_form['form_is_valid'] = False
+            return JsonResponse(data_form)
+        try:
+            result = {
+                'name': request.POST['name'],
+                'tag': request.POST['name'],
+                'deception': request.POST['deception'],
+            }
+        except ObjectDoesNotExist:
+            result = {}
+        return HttpResponse(json.dumps({
+            'infa': 'sosat',
+            'result': result,
+        }), content_type='application/json'
+        )
 
 
 class MainArticlesChange(TemplateView):

@@ -3,6 +3,8 @@
 {% block javascript %}
 <script src="{% static 'js/poka.js' %}"></script>
 <script src="{% static 'js/privet.js' %}"></script>
+<script src="{% static 'js/modal.js' %}"></script>
+<script src="{% static 'js/modal2.js' %}"></script>
 {% endblock %}
 {% block content %}
 <section class="feature">
@@ -17,35 +19,62 @@
                     New articles
                 </button>
             </p>
+            <p>
+                <button type="button" class="btn btn-primary popup-open"
+                        data-url="{% url 'dishes:articlescreateview' %}">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Modal modal
+                </button>
+            </p>
+            <p>
+            <p><a href="#" id="btn2" class="btn btn-primary">Открыть модальное окно 2</a></p>
+            </p>
             <table class="table" id="articles-table">
                 <thead>
                 <tr>
                     <th>Название статьи</th>
-                    <th>Тэг</th>
+                    <th class="th">Тэг</th>
                     <th></th>
                 </tr>
                 </thead>
-                {% for obj in articles_list %}
+                {% csrf_token %}
                 <tbody>
-                <td>{{obj.name}}</td>
-                <td>{{obj.tag}}</td>
-                <td>
-                    <a href="{% url 'dishes:articlesdetailview' obj.id %}">
-                        <button type="button" class="btn btn-primary js-take-id" data-id="{{obj.id}}">
-                            <span class="glyphicon glyphicon-plus"></span>
-                            Перейти к статье
-                        </button>
-                    </a></td>
+                {% include 'dishes/articles/include/articles_list.html' %}
                 </tbody>
-                {% endfor %}
             </table>
             <p><a href="{% url 'dishes:index' %}">NAZAAAAAD </a></p>
         </div>
-        <div class="modal fade" id="modal-articles">
-            <div class="modal-dialog">
-                <div class="modal-content"></div>
-            </div>
-        </div>
     </div>
 </section>
+<div class="popup-fade">
+    <div class="popup">
+        <a class="popup-close" href="#">Закрыть</a>
+        <p class="p">Всплывающие окна имеют широкий диапазон применений...</p>
+    </div>
+</div>
+<div class="popup-window">
+    <div class="popup">
+        <a class="popup-close" href="#">Закрыть</a>
+        <tr>
+            {% csrf_token %}
+            <form method="post">
+                <label for="#">Название статьи, сэр</label><br>
+                <td><input name="name"></td>
+                <label for="#">Тэг, сэр</label><br>
+                <td><input name="tag"></td>
+                <br>
+                <label for="#">Описание, сэр</label><br>
+                <td><input name="deception"></td>
+                <br>
+                <td>
+                    <a href="#">
+                        <button type="button" class="btn btn-primary btn3" data-id="{{obj.id}}">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            Заебись гоу
+                        </button>
+                    </a></td>
+            </form>
+        </tr>
+    </div>
+</div>
 {% endblock content %}
