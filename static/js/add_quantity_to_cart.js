@@ -18,13 +18,15 @@ $.ajaxSetup({
       },
        success: function(data) {
         alert("Вы кликнули на кнопку и ее значение = "+ data['counts']);
+        $(".calc-button").text(data['counts'])
         console.log(data);
     }
     });
 });
+
 $('.plus').click(function(){
  $(".calc-button").val(parseInt($(this).val())+1);
- alert( $(".calc-button").val());
+ alert($(".calc-button").val());
  const csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
 $.ajaxSetup({
     beforeSend: function(xhr, settings) {
@@ -41,6 +43,7 @@ $.ajaxSetup({
       },
        success: function(data) {
         alert("Вы кликнули на кнопку и ее значение = "+ data['counts']);
+        $(".calc-button").text(data['counts'])
         console.log(data);
     }
     });

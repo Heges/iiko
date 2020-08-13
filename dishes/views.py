@@ -1,5 +1,4 @@
 import json
-
 import simplejson as simplejson
 from PIL.SpiderImagePlugin import isInt
 from django.contrib.auth import login, authenticate
@@ -33,7 +32,6 @@ class MainListView(TemplateView):
             bbd = Dishes.objects.filter(name__icontains=keyword)
             return render(request, 'dishes/search_result.html', {'bbd': bbd})
         else:
-            sf = SearchForm()
             return render(request, 'dishes/index.html')
 
     def get_context_data(self, **kwargs):
@@ -91,7 +89,6 @@ class MainCartRemove(View):
 class MainCartPlusValue(View):
 
     def post(self, request):
-        print(request.POST)
         a = dict()
         a = {
             'id': request.POST['id'],
@@ -162,15 +159,25 @@ class MainArticles(View):
         data = list(Articles.objects.values().filter(id=name))
         return JsonResponse(data, safe=False)
 
-    def put(self, request):
-        return HttpResponse('uraaa')
-
 
 class MainArticlesDetail(View):
 
     def get(self, request, pk):
         articles_detail = Articles.objects.filter(id=pk)
         return render(request, 'dishes/articles_detail.html', {'articles_detail': articles_detail})
+
+    def post(self, request, pk):
+        try:
+            obj_for_del = Articles.objects.get(pk=pk)
+            data = dict()
+            if request.POST['key'] == 'remove':
+                obj_for_del.delete()
+                articles = Articles.objects.all()
+                data['html_form_detail'] = render_to_string('dishes/articles_detail.html', context={'articles_list': articles})
+                return JsonResponse(data)
+        except ObjectDoesNotExist:
+            data['html_form'] = render_to_string('dishes/articles.html', context={'articles_list': articles}, request=request)
+            return JsonResponse(data)
 
 
 class MainArticlesCreate(View):
@@ -180,22 +187,19 @@ class MainArticlesCreate(View):
         form = ArticlesForm(request.POST)
         if form.is_valid():
             form.save()
-            data_form['form_is_valid'] = True
-            articles_list = Articles.objects.all()
-            data_form['html_to_list'] = render_to_string('dishes/articles/include/articles_list.html', {
-                'articles_list': articles_list
-            })
         else:
             data_form['form_is_valid'] = False
             return JsonResponse(data_form)
         try:
             result = {
                 'name': request.POST['name'],
-                'tag': request.POST['name'],
+                'tag': request.POST['tag'],
                 'deception': request.POST['deception'],
             }
         except ObjectDoesNotExist:
-            result = {}
+            result = {
+                'ObjectDoesNotExist': 'ObjectDoesNotExist'
+            }
         return HttpResponse(json.dumps({
             'infa': 'sosat',
             'result': result,

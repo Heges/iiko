@@ -1,10 +1,10 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block javascript %}
-<script src="{% static 'js/poka.js' %}"></script>
 <script src="{% static 'js/privet.js' %}"></script>
 <script src="{% static 'js/modal.js' %}"></script>
-<script src="{% static 'js/modal2.js' %}"></script>
+<script src="{% static 'js/delete_articles.js' %}"></script>
+<script src="{% static 'js/create_article.js' %}"></script>
 {% endblock %}
 {% block content %}
 <section class="feature">
@@ -12,22 +12,14 @@
         <h2 class="section-header">Новости, статьи, рецепты</h2>
         <div class="table-responsive">
             <p>
-                {% csrf_token %}
-                <button type="button" class="btn btn-primary js-create-articles"
-                        data-url="{% url 'dishes:articlescreateview' %}">
-                    <span class="glyphicon glyphicon-plus"></span>
-                    New articles
-                </button>
-            </p>
-            <p>
                 <button type="button" class="btn btn-primary popup-open"
                         data-url="{% url 'dishes:articlescreateview' %}">
                     <span class="glyphicon glyphicon-plus"></span>
-                    Modal modal
+                    Кнопка для тестов
                 </button>
             </p>
             <p>
-            <p><a href="#" id="btn2" class="btn btn-primary">Открыть модальное окно 2</a></p>
+            <p><a href="#" id="btn2" class="btn btn-primary">Создать хуйню</a></p>
             </p>
             <table class="table" id="articles-table">
                 <thead>
@@ -38,7 +30,7 @@
                 </tr>
                 </thead>
                 {% csrf_token %}
-                <tbody>
+                <tbody id="tbody">
                 {% include 'dishes/articles/include/articles_list.html' %}
                 </tbody>
             </table>
@@ -46,13 +38,13 @@
         </div>
     </div>
 </section>
-<div class="popup-fade">
-    <div class="popup">
+<div class="popup-fade" style="display: none;">
+    <div class="popup" role="dialog" aria-hidden="true">
         <a class="popup-close" href="#">Закрыть</a>
         <p class="p">Всплывающие окна имеют широкий диапазон применений...</p>
     </div>
 </div>
-<div class="popup-window">
+<div class="popup-window" style="display: none;">
     <div class="popup">
         <a class="popup-close" href="#">Закрыть</a>
         <tr>

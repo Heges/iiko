@@ -10,10 +10,6 @@ $('#btn2').click(function() {
       url: '/articles/create/',
       type: 'post',
       dataType: 'json',
-      data: {
-        'first-input': $("input[name='first-input']").val(),
-        'second-input':  $("input[name='second-input']").val()
-      },
        success: function(json) {
        $('.popup-window').fadeIn();
     }
@@ -40,6 +36,7 @@ $('#btn2').click(function() {
             'deception':  $("input[name='deception']").val()
           },
            success: function(data) {
+           $('.popup-close').parents('.popup-window').fadeOut();
            console.log(data);
         }
         });

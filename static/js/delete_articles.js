@@ -1,5 +1,5 @@
 $(function () {
-$('.popup-open').click(function() {
+$('.button-delete').click(function() {
 		 const csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
          $.ajaxSetup({
             beforeSend: function(xhr, settings) {
@@ -7,20 +7,17 @@ $('.popup-open').click(function() {
             }
 });
  $.ajax({
-      url: '/articles/create/',
+      url: '/articles/' + $(this).data('id') + '/',
       type: 'post',
-      dataType: 'json',
+      dataType: 'data',
       data: {
         'key': 'remove',
         'id': $(this).data('id'),
       },
-       success: function(json) {
-       $('.popup-fade').fadeIn();
+       success: function(data) {
+       alert('yra');
+       $("#articles-table #tbody").html(data['html_form_detail']);
     }
     });
 		});
-$('.popup-close').click(function() {
-		$(this).parents('.popup-fade').fadeOut();
-		return false;
-	});
 });
